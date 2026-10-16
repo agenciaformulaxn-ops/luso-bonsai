@@ -1,0 +1,11 @@
+.DS_Store
+node_modules/
+_trabalho/
+__pycache__/
+*.log
+# ficheiros-fonte muito grandes (>50 MB): ficam só no disco da agência
+design-system/entrada/catalogo/Catalogo.pdf
+# material recebido com dados pessoais do cliente
+design-system/entrada/material-david-*/onboarding-*.pdf
+design-system/entrada/renders/peca-06-cartao-frente.png
+design-system/entrada/material-david-*/*/6-cartao_empresa*.pdf

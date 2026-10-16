@@ -1,0 +1,273 @@
+{
+  "ok": false,
+  "strict": false,
+  "browserSkipped": true,
+  "lint": {
+    "ok": false,
+    "errorCount": 4,
+    "warningCount": 9,
+    "infoCount": 0,
+    "findings": [
+      {
+        "code": "css_transition_used",
+        "severity": "warning",
+        "message": "CSS declaration `transition: background var(--dur-normal) var(--curva)` runs on the browser clock and cannot be seeked deterministically across render workers.",
+        "selector": "button, .botao",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rui-cunha/Documents/FormulaXN/AgentXN/clientes/luso-bonsai/pecas/reel/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Keep the class or attribute swap for state; put the visual change on the paused GSAP timeline."
+      },
+      {
+        "code": "css_transition_used",
+        "severity": "warning",
+        "message": "CSS declaration `transition-duration: 0.01ms` runs on the browser clock and cannot be seeked deterministically across render workers.",
+        "selector": "*, *::before, *::after",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rui-cunha/Documents/FormulaXN/AgentXN/clientes/luso-bonsai/pecas/reel/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Keep the class or attribute swap for state; put the visual change on the paused GSAP timeline."
+      },
+      {
+        "code": "gsap_animates_clip_element",
+        "severity": "error",
+        "message": "GSAP animation sets autoAlpha on a clip element. Selector \"#c2\" resolves to element <div id=\"c2\" class=\"cena clip\">. The framework manages clip visibility, and autoAlpha writes visibility as well as opacity. Do not animate these properties on clip elements.",
+        "selector": "#c2",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rui-cunha/Documents/FormulaXN/AgentXN/clientes/luso-bonsai/pecas/reel/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Remove the visibility/display/autoAlpha tween, or move the content into a child <div> and target that instead."
+      },
+      {
+        "code": "gsap_animates_clip_element",
+        "severity": "error",
+        "message": "GSAP animation sets autoAlpha on a clip element. Selector \"#c1\" resolves to element <div id=\"c1\" class=\"cena clip\">. The framework manages clip visibility, and autoAlpha writes visibility as well as opacity. Do not animate these properties on clip elements.",
+        "selector": "#c1",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rui-cunha/Documents/FormulaXN/AgentXN/clientes/luso-bonsai/pecas/reel/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Remove the visibility/display/autoAlpha tween, or move the content into a child <div> and target that instead."
+      },
+      {
+        "code": "gsap_animates_clip_element",
+        "severity": "error",
+        "message": "GSAP animation sets autoAlpha on a clip element. Selector \"#c3\" resolves to element <div id=\"c3\" class=\"cena clip\">. The framework manages clip visibility, and autoAlpha writes visibility as well as opacity. Do not animate these properties on clip elements.",
+        "selector": "#c3",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rui-cunha/Documents/FormulaXN/AgentXN/clientes/luso-bonsai/pecas/reel/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Remove the visibility/display/autoAlpha tween, or move the content into a child <div> and target that instead."
+      },
+      {
+        "code": "gsap_animates_clip_element",
+        "severity": "error",
+        "message": "GSAP animation sets autoAlpha on a clip element. Selector \"#c4\" resolves to element <div id=\"c4\" class=\"cena clip\">. The framework manages clip visibility, and autoAlpha writes visibility as well as opacity. Do not animate these properties on clip elements.",
+        "selector": "#c4",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rui-cunha/Documents/FormulaXN/AgentXN/clientes/luso-bonsai/pecas/reel/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Remove the visibility/display/autoAlpha tween, or move the content into a child <div> and target that instead."
+      },
+      {
+        "code": "gsap_timeline_set_initial_hide",
+        "severity": "warning",
+        "message": "Initial hidden state for \"#c2, #c3, #c4\" is set via tl.set(...) at position 0 inside the paused timeline. A zero-duration set at 0 does not render while the playhead sits exactly at 0, so frame 0 shows the un-hidden state.",
+        "selector": "#c2, #c3, #c4",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rui-cunha/Documents/FormulaXN/AgentXN/clientes/luso-bonsai/pecas/reel/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use gsap.set(...) (immediate, outside the timeline) for initial states, or author the hidden state directly in CSS/attributes."
+      },
+      {
+        "code": "gsap_timeline_set_initial_hide",
+        "severity": "warning",
+        "message": "Initial hidden state for \"#rot1\" is set via tl.set(...) at position 0 inside the paused timeline. A zero-duration set at 0 does not render while the playhead sits exactly at 0, so frame 0 shows the un-hidden state.",
+        "selector": "#rot1",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rui-cunha/Documents/FormulaXN/AgentXN/clientes/luso-bonsai/pecas/reel/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use gsap.set(...) (immediate, outside the timeline) for initial states, or author the hidden state directly in CSS/attributes."
+      },
+      {
+        "code": "gsap_timeline_set_initial_hide",
+        "severity": "warning",
+        "message": "Initial hidden state for \"#sol\" is set via tl.set(...) at position 0 inside the paused timeline. A zero-duration set at 0 does not render while the playhead sits exactly at 0, so frame 0 shows the un-hidden state.",
+        "selector": "#sol",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rui-cunha/Documents/FormulaXN/AgentXN/clientes/luso-bonsai/pecas/reel/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Use gsap.set(...) (immediate, outside the timeline) for initial states, or author the hidden state directly in CSS/attributes."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"c1\"> is a timeline element that contains nested <div id=\"rot1\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#c1",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rui-cunha/Documents/FormulaXN/AgentXN/clientes/luso-bonsai/pecas/reel/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"c1\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"c2\"> is a timeline element that contains nested <div id=\"foto-viveiro\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#c2",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rui-cunha/Documents/FormulaXN/AgentXN/clientes/luso-bonsai/pecas/reel/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"c2\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"c3\"> is a timeline element that contains nested <div id=\"pz3\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#c3",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rui-cunha/Documents/FormulaXN/AgentXN/clientes/luso-bonsai/pecas/reel/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"c3\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      },
+      {
+        "code": "nested_structure_needs_subcomposition",
+        "severity": "warning",
+        "message": "<div id=\"c4\"> is a timeline element that contains nested <img id=\"logo\">. The timeline shows one row per top-level element, and the root composition is built only from sub-compositions.",
+        "selector": "#c4",
+        "dataAttributes": {},
+        "sourceFile": "/Users/rui-cunha/Documents/FormulaXN/AgentXN/clientes/luso-bonsai/pecas/reel/index.html",
+        "bbox": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0
+        },
+        "time": 0,
+        "fixHint": "Move <div id=\"c4\"> and its contents into a sub-composition file and mount it with data-composition-src."
+      }
+    ],
+    "filesScanned": 1
+  },
+  "runtime": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": []
+  },
+  "layout": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "duration": 0,
+    "samples": [],
+    "transitionSamples": [],
+    "transitionSamplesDropped": 0,
+    "tolerance": 2,
+    "totalIssueCount": 0,
+    "truncated": false
+  },
+  "motion": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": false,
+    "samples": 0
+  },
+  "contrast": {
+    "ok": true,
+    "errorCount": 0,
+    "warningCount": 0,
+    "infoCount": 0,
+    "findings": [],
+    "enabled": true,
+    "samples": [],
+    "checked": 0,
+    "passed": 0
+  },
+  "hdr": {
+    "autoPromotion": null,
+    "inspection": "available"
+  },
+  "snapshots": {
+    "enabled": false,
+    "files": [],
+    "times": [],
+    "findingFiles": []
+  }
+}

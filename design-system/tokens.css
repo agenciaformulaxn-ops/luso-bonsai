@@ -1,0 +1,156 @@
+/* ══════════════════════════════════════════════════════════════
+   tokens.css — Luso Bonsai
+   ──────────────────────────────────────────────────────────────
+   Os NÚMEROS da marca vivem aqui, e só aqui.
+
+   Regras:
+   · Quando o DESIGN.md e este ficheiro discordam, ganha este.
+   · Se um valor não está aqui, não existe. Primeiro escreve-se
+     aqui (com data e quem aprovou); só depois se usa.
+   · Fonte que manda: as peças impressas (output/medicao.md).
+     O site-actual (luso-bonsai.com) é só referência do «antes»:
+     nenhum valor deste ficheiro vem dele.
+   · Valores sem medição directa levam o comentário PROPOSTA. Os hex
+     das tintas são conversões CMYK → ecrã, por isso também.
+   · Impressão: vermelho = CMYK 0/100/100/0 (Pantone 485);
+     preto = K100 (fundos grandes 100/100/100/100).
+
+   Como usar em qualquer HTML:
+     <link rel="stylesheet" href="tokens.css">
+   e depois sempre var(--nome), nunca o número à mão.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Fontes (ecrã) ──────────────────────────────────────────── */
+/* Substitutas Google das fontes das peças:
+   Russo One ← Calamitech / Capital Daren · Fira Sans ← Clan OT  */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:wght@400;500;700&family=Russo+One&display=swap');
+
+:root {
+  /* ── 1. Cores primitivas (o que a marca TEM) ──────────────── */
+  --marca-vermelho:       #ED1C24;  /* PROPOSTA: conversão de CMYK 0/100/100/0 (peças 6, 8, 9, 10, 16, 17, 18) */
+  --marca-preto:          #231F20;  /* PROPOSTA: conversão de K100 (todas as peças) */
+  --marca-branco:         #FFFFFF;  /* medido: papel, todas as peças */
+  --marca-cinza-escuro:   #706D6E;  /* PROPOSTA: pixel da frente da etiqueta (peça 3) */
+  --marca-cinza-medio:    #918F8F;  /* PROPOSTA: conversão de K50 (peças 5, 9, 11) */
+  --marca-cinza-goshin:   #A7A5A6;  /* PROPOSTA: conversão de K40 (peça 13) */
+  --marca-cinza-claro:    #E9E8E8;  /* PROPOSTA: conversão de K10 (peças 6, 17) */
+
+  /* ── 2. Cores semânticas (o que a marca FAZ com elas) ─────── */
+  --cor-texto:            var(--marca-preto);
+  --cor-texto-2:          var(--marca-cinza-escuro);  /* 5,12:1 sobre branco */
+  --cor-fundo:            var(--marca-branco);
+  --cor-superficie:       var(--marca-branco);
+  --cor-campo:            var(--marca-cinza-claro);   /* PROPOSTA */
+  --cor-accao:            var(--marca-preto);         /* PROPOSTA: botões */
+  --cor-accao-hover:      var(--marca-vermelho);      /* PROPOSTA */
+  --cor-realce:           var(--marca-vermelho);      /* preços, selos; texto só ≥ 18px bold (4,38:1) */
+  --cor-linha:            var(--marca-cinza-claro);
+
+  /* Linhas da marca: a cor de fundo que manda em cada uma */
+  --linha-bonsai:         var(--marca-vermelho);      /* produtos Bonsai e gama Basic */
+  --linha-orquideas:      var(--marca-preto);         /* Orchis by Luso Bonsai */
+  --linha-goshin:         var(--marca-preto);         /* Goshin: preto/branco, SEM vermelho */
+  --linha-goshin-alt:     var(--marca-cinza-goshin);  /* fundo alternativo Goshin (peça 13) */
+  --linha-etiqueta:       var(--marca-cinza-escuro);  /* frente da etiqueta pendurada */
+
+  /* ── 3. Tipografia: 6 papéis ──────────────────────────────── */
+  --fonte-display:        'Calamitech', 'Russo One', sans-serif;   /* medido: peças 8, 17. Russo One = PROPOSTA. SEMPRE MAIÚSCULAS */
+  --fonte-texto:          'Fira Sans', sans-serif;                 /* PROPOSTA: substituta de ecrã da Clan OT */
+  --fonte-texto-impressao:'Clan OT', 'Fira Sans', sans-serif;      /* medido: peças 7, 8, 17, 18 */
+
+  --tipo-display:         56px;   /* PROPOSTA (rótulos: 48–56 pt) */
+  --tipo-titulo:          32px;   /* PROPOSTA */
+  --tipo-subtitulo:       24px;   /* PROPOSTA */
+  --tipo-corpo:           16px;   /* PROPOSTA */
+  --tipo-etiqueta:        12px;   /* PROPOSTA */
+  --tipo-botao:           16px;   /* PROPOSTA */
+
+  --peso-display:         400;    /* a fonte de display já é grossa */
+  --peso-titulo:          700;    /* PROPOSTA (impressão: Clan Black) */
+  --peso-subtitulo:       500;    /* PROPOSTA */
+  --peso-corpo:           400;    /* PROPOSTA (impressão: Clan News) */
+  --peso-etiqueta:        700;    /* PROPOSTA */
+  --peso-botao:           500;    /* PROPOSTA */
+  --entrelinha-corpo:     1.5;    /* PROPOSTA */
+  --entrelinha-titulo:    1.15;   /* PROPOSTA */
+  --tracking-etiqueta:    0.08em; /* PROPOSTA */
+
+  /* Impressão: mínimos */
+  --tipo-min-impressao:   6pt;    /* PROPOSTA (rótulo orquídeas usa 4,5 pt: pequeno demais) */
+
+  /* ── 4. Espaço: grelha de 8 ───────────────────────────────── */
+  --grelha:               8px;    /* PROPOSTA */
+  --e-0:  4px;   /* PROPOSTA: só para afinar */
+  --e-1:  8px;
+  --e-2:  16px;
+  --e-3:  24px;
+  --e-4:  32px;
+  --e-5:  48px;
+  --e-6:  64px;
+  --e-7:  96px;
+  --largura-conteudo:     1200px; /* PROPOSTA */
+  --largura-texto:        640px;  /* PROPOSTA */
+  --margem-impressao:     5mm;    /* PROPOSTA: distância mínima ao corte */
+
+  /* ── 5. Cantos, sombras, linhas ───────────────────────────── */
+  --raio-cartao:          0;      /* medido: peças só com cantos rectos */
+  --raio-botao:           0;      /* medido: idem */
+  --raio-campo:           0;      /* medido: idem */
+  --raio-circulo:         50%;    /* medido: autocolantes, etiqueta, foto do rótulo */
+  --sombra-1:             0 1px 4px rgba(35, 31, 32, 0.10);  /* PROPOSTA: só cartões de produto no ecrã */
+  --linha:                1px solid var(--cor-linha);
+
+  /* Estados e camadas (ecrã) */
+  --cor-erro:             var(--marca-vermelho);      /* PROPOSTA: mensagem de erro de formulário */
+  --cor-sucesso:          var(--marca-preto);         /* PROPOSTA: confirmação a preto + ícone de visto */
+  --cor-esgotado:         var(--marca-cinza-escuro);  /* PROPOSTA: selo «Sem stock» (5,1:1 com branco) */
+  --cor-veu:              rgba(35, 31, 32, 0.56);     /* PROPOSTA: véu por trás do carrinho lateral */
+  --foco:                 2px solid var(--marca-preto); /* PROPOSTA: contorno de foco (teclado e campos) */
+  --sombra-2:             0 0 32px rgba(35, 31, 32, 0.18); /* PROPOSTA: carrinho lateral e avisos */
+
+  /* Ícones (Lucide) */
+  --icone:                24px;   /* PROPOSTA */
+  --icone-pequeno:        16px;   /* PROPOSTA */
+  --icone-traco:          1.75;   /* PROPOSTA */
+
+  /* Campos de formulário */
+  --altura-campo:         48px;   /* PROPOSTA */
+  --largura-carrinho:     400px;  /* PROPOSTA */
+
+  /* Padrões (pincelada, círculo de pincel, 盆栽) */
+  --padrao-pincel-altura:   22%;  /* PROPOSTA: altura máxima da pincelada (topo ou rodapé) face à peça */
+  --padrao-caracteres:      38%;  /* PROPOSTA: largura máxima dos 盆栽 quando ocupam um canto */
+  --padrao-circulo:         72%;  /* PROPOSTA: largura do círculo de pincel face à peça */
+  --padrao-suave:           var(--marca-cinza-claro); /* PROPOSTA: cor do padrão quando fica por trás de uma foto */
+
+  /* ── 6. Logótipo ──────────────────────────────────────────── */
+  --logo-min-ecra:        48px;   /* PROPOSTA */
+  --logo-min-impressao:   15mm;   /* PROPOSTA */
+
+  /* ── 7. Movimento ─────────────────────────────────────────── */
+  --dur-rapido:           150ms;  /* PROPOSTA */
+  --dur-normal:           250ms;  /* PROPOSTA */
+  --dur-entrada:          400ms;  /* PROPOSTA */
+  --curva:                ease-out; /* PROPOSTA */
+  --subida:              16px;   /* PROPOSTA: distância do «aparecer ao fazer scroll» */
+}
+
+/* ── Base mínima: faz qualquer HTML «falar» a marca ──────────── */
+html { font-family: var(--fonte-texto); font-size: var(--tipo-corpo); line-height: var(--entrelinha-corpo); color: var(--cor-texto); background: var(--cor-fundo); }
+h1 { font-family: var(--fonte-display); font-size: var(--tipo-display); font-weight: var(--peso-display); line-height: var(--entrelinha-titulo); text-transform: uppercase; }
+h2 { font-family: var(--fonte-texto); font-size: var(--tipo-titulo); font-weight: var(--peso-titulo); line-height: var(--entrelinha-titulo); }
+a  { color: var(--cor-texto); }
+button, .botao { font-family: var(--fonte-texto); font-size: var(--tipo-botao); font-weight: var(--peso-botao); background: var(--cor-accao); color: var(--marca-branco); border: 0; border-radius: var(--raio-botao); padding: var(--e-1) var(--e-2); transition: background var(--dur-normal) var(--curva); }
+button:hover, .botao:hover { background: var(--cor-accao-hover); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+/* ── Registo de alterações ────────────────────────────────────
+   2026-10-16 · AgentXN · Estados, camadas, ícones, campos e
+   subida para os componentes de ecrã (todos PROPOSTA).
+   2026-10-16 · AgentXN · Primeira versão, a partir das 24 peças
+   impressas. Site-actual só como referência. PROPOSTAS por
+   aprovar (Rui e David) em PROPOSTAS.md.
+   ────────────────────────────────────────────────────────────── */

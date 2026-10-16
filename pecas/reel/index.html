@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="pt-PT">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Reel Luso Bonsai · eBook grátis</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <link rel="stylesheet" href="assets/tokens.css" />
+    <!--
+      Reel Luso Bonsai 1080x1920, 9 s, sem voz. Oferta real: eBook grátis
+      «Segredos para cuidar do Bonsai» + 10% na 1.ª compra online.
+      Zona segura do feed (corte 4:5): y 285–1635; tudo o que importa fica lá dentro.
+      Só var(--...) do tokens.css. Movimento: 250 ms (trocas), 400 ms (entradas),
+      600 ms só para a pincelada e os caracteres a desenhar-se. Sem brilhos nem ressaltos.
+    -->
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1080px; height: 1920px; overflow: hidden; background: var(--marca-branco); }
+      #root { position: relative; width: 1080px; height: 1920px; overflow: hidden; background: var(--marca-branco); font-family: var(--fonte-texto); color: var(--cor-texto); }
+      .cena { position: absolute; inset: 0; overflow: hidden; }
+      .display { font-family: var(--fonte-display); font-weight: var(--peso-display); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.04; word-break: keep-all; }
+      .linha { display: block; overflow: hidden; padding: 8px 0; margin: -8px 0; }
+      .linha > span { display: inline-block; }
+      .msk { -webkit-mask-size: 100% 100%; mask-size: 100% 100%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; }
+      .m-circulo { -webkit-mask-image: url(assets/circulo-pincel.png); mask-image: url(assets/circulo-pincel.png); }
+      .m-caracteres { -webkit-mask-image: url(assets/caracteres-mask.png); mask-image: url(assets/caracteres-mask.png); }
+      .m-topo { -webkit-mask-image: url(assets/pincel-topo.png); mask-image: url(assets/pincel-topo.png); }
+      .m-rodape { -webkit-mask-image: url(assets/pincel-rodape.png); mask-image: url(assets/pincel-rodape.png); }
+
+      /* Cena 1 · o sol e os caracteres */
+      #c1 { background: var(--marca-branco); }
+      .rotulo { position: absolute; left: 96px; top: 330px; display: flex; align-items: center; gap: 24px; font-size: 34px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--cor-texto-2); }
+      .rotulo i { width: 64px; height: 8px; background: var(--marca-vermelho); display: block; }
+      #t1 { position: absolute; left: 96px; right: 96px; top: 410px; font-size: 104px; }
+      #t1 .vermelho { color: var(--marca-vermelho); }
+      #sol { position: absolute; left: 220px; top: 975px; width: 640px; height: 640px; background: var(--marca-vermelho); }
+      #chars1 { position: absolute; left: 430px; top: 1147px; width: 220px; height: 295px; background: var(--marca-branco); }
+
+      /* Cena 2 · o viveiro e os cinco cuidados */
+      #c2 { background: var(--marca-branco); }
+      #foto-viveiro { position: absolute; left: 0; top: 285px; width: 1080px; height: 640px; overflow: hidden; }
+      #foto-viveiro img { width: 100%; height: 100%; object-fit: cover; object-position: 70% 50%; display: block; }
+      #t2 { position: absolute; left: 96px; right: 96px; top: 990px; font-size: 76px; }
+      .lista { position: absolute; left: 96px; right: 96px; top: 1205px; display: grid; grid-template-columns: 1fr 1fr; gap: 36px 32px; }
+      .item { display: flex; align-items: center; gap: 24px; font-size: 44px; font-weight: 500; }
+      .item svg { width: 56px; height: 56px; fill: none; stroke: var(--marca-preto); stroke-width: var(--icone-traco); stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto; }
+
+      /* Cena 3 · os 10% */
+      #c3 { background: var(--linha-bonsai); color: var(--marca-branco); }
+      #pz3 { position: absolute; left: 0; top: 285px; width: 1080px; height: 140px; background: var(--marca-branco); }
+      #t3 { position: absolute; left: 96px; right: 96px; top: 470px; font-size: 280px; line-height: 1; text-align: center; }
+      #s3 { position: absolute; left: 96px; right: 96px; top: 780px; font-size: 56px; font-weight: 700; line-height: 1.25; text-align: center; }
+      #circ3 { position: absolute; left: 270px; top: 1000px; width: 540px; height: 540px; background: var(--marca-branco); }
+      #arvore3 { position: absolute; left: 375px; top: 1060px; width: 330px; height: 420px; object-fit: contain; mix-blend-mode: multiply; }
+
+      /* Cena 4 · o fecho */
+      #c4 { background: var(--marca-branco); }
+      #logo { position: absolute; left: 270px; top: 330px; width: 540px; height: auto; }
+      #t4 { position: absolute; left: 96px; right: 96px; top: 1010px; font-size: 80px; text-align: center; }
+      #site { position: absolute; left: 0; right: 0; top: 1240px; text-align: center; font-size: 52px; font-weight: 500; color: var(--cor-texto); }
+      #pz4 { position: absolute; left: 0; top: 1395px; width: 1080px; height: 240px; background: var(--marca-cinza-claro); }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="9" data-width="1080" data-height="1920">
+
+      <div id="c1" class="cena clip" data-start="0" data-duration="3.25" data-track-index="0">
+        <div class="rotulo" id="rot1"><i></i>eBook grátis</div>
+        <div class="display" id="t1">
+          <span class="linha"><span>Segredos</span></span>
+          <span class="linha"><span>para cuidar</span></span>
+          <span class="linha"><span>do <b class="vermelho" style="font-weight:inherit">Bonsai</b></span></span>
+        </div>
+        <div id="sol" class="msk m-circulo"></div>
+        <div id="chars1" class="msk m-caracteres"></div>
+      </div>
+
+      <div id="c2" class="cena clip" data-start="2.7" data-duration="3.35" data-track-index="1">
+        <div id="foto-viveiro"><img id="img-viveiro" src="assets/gerada-viveiro.jpg" alt="Viveiro de Bonsai" /></div>
+        <div class="display" id="t2">
+          <span class="linha"><span>Os cinco cuidados</span></span>
+          <span class="linha"><span>que decidem tudo</span></span>
+        </div>
+        <div class="lista">
+          <div class="item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>Onde o colocar</div>
+          <div class="item"><svg viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></svg>Rega</div>
+          <div class="item"><svg viewBox="0 0 24 24"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></svg>Adubo</div>
+          <div class="item"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/></svg>Poda</div>
+          <div class="item"><svg viewBox="0 0 24 24"><path d="M2 22v-5l5-5 5 5-5 5z"/><path d="M9.5 14.5 16 8"/><path d="m17 2 5 5-.5.5a3.54 3.54 0 0 1-5 0a3.54 3.54 0 0 1 0-5L17 2"/></svg>Transplante</div>
+        </div>
+      </div>
+
+      <div id="c3" class="cena clip" data-start="5.5" data-duration="2.35" data-track-index="2">
+        <div id="pz3" class="msk m-topo"></div>
+        <div class="display" id="t3"><span class="linha"><span>+10%</span></span></div>
+        <div id="s3">na primeira compra online,<br />com o eBook grátis.</div>
+        <div id="circ3" class="msk m-circulo"></div>
+        <img id="arvore3" src="assets/site-sobreiro.jpg" alt="Sobreiro Bonsai" />
+      </div>
+
+      <div id="c4" class="cena clip" data-start="7.3" data-duration="1.7" data-track-index="3">
+        <img id="logo" src="assets/simbolo-letras.png" alt="Luso Bonsai" />
+        <div class="display" id="t4">
+          <span class="linha"><span>Peça o eBook</span></span>
+          <span class="linha"><span>grátis</span></span>
+        </div>
+        <div id="site">luso-bonsai.com</div>
+        <div id="pz4" class="msk m-rodape"></div>
+      </div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      const L = (id) => `#${id} .linha > span`;
+      const E = "power2.out", ES = "power2.inOut";
+
+      // estado inicial (fora da linha do tempo, para o fotograma 0 já sair certo).
+      // Cada cena aparece e desaparece pelo seu data-start/data-duration.
+      gsap.set([L("t1"), L("t2"), L("t3"), L("t4")], { yPercent: 140 });
+      gsap.set("#sol", { opacity: 0, y: 64, scale: 0.92 });
+      gsap.set("#chars1", { clipPath: "inset(0% 0% 100% 0%)" });
+      gsap.set("#c2", { yPercent: 100 });
+      gsap.set(["#c3", "#c4"], { clipPath: "inset(0% 0% 100% 0%)" });
+
+      // 1 · rótulo, título linha a linha, o sol entra, os caracteres desenham-se
+      tl.to(L("t1"), { yPercent: 0, duration: 0.4, ease: E, stagger: 0.15 }, 0.1);
+      tl.to("#sol", { opacity: 1, y: 0, scale: 1, duration: 0.6, ease: E }, 0.6);
+      tl.to("#chars1", { clipPath: "inset(0% 0% 0% 0%)", duration: 0.8, ease: "power1.inOut" }, 1.1);
+
+      // 2 · a cena do viveiro sobe por cima; a foto aproxima-se devagar; os cuidados entram um a um
+      tl.to("#c2", { yPercent: 0, duration: 0.4, ease: ES }, 2.7);
+      tl.fromTo("#img-viveiro", { scale: 1.08 }, { scale: 1, duration: 3.0, ease: "none" }, 2.7);
+      tl.to(L("t2"), { yPercent: 0, duration: 0.4, ease: E, stagger: 0.15 }, 2.85);
+      tl.from("#c2 .item", { opacity: 0, y: 16, duration: 0.4, ease: E, stagger: 0.15 }, 3.15);
+
+      // 3 · o vermelho entra de baixo; +10%; a árvore no círculo de pincel
+      tl.to("#c3", { clipPath: "inset(0% 0% 0% 0%)", duration: 0.4, ease: ES }, 5.5);
+      tl.from("#pz3", { clipPath: "inset(0% 100% 0% 0%)", duration: 0.6, ease: "power1.inOut" }, 5.55);
+      tl.to(L("t3"), { yPercent: 0, duration: 0.4, ease: E }, 5.6);
+      tl.from("#s3", { opacity: 0, y: 16, duration: 0.4, ease: E }, 5.75);
+      tl.from(["#circ3", "#arvore3"], { opacity: 0, y: 48, duration: 0.4, ease: E, stagger: 0.1 }, 5.85);
+
+      // 4 · fecho: branco, logótipo grande, chamada e site; pincelada cinza em baixo
+      tl.to("#c4", { clipPath: "inset(0% 0% 0% 0%)", duration: 0.4, ease: ES }, 7.3);
+      tl.from("#logo", { opacity: 0, y: 40, duration: 0.4, ease: E }, 7.35);
+      tl.to(L("t4"), { yPercent: 0, duration: 0.4, ease: E, stagger: 0.15 }, 7.5);
+      tl.from("#site", { opacity: 0, y: 16, duration: 0.4, ease: E }, 7.75);
+      tl.from("#pz4", { clipPath: "inset(0% 100% 0% 0%)", duration: 0.6, ease: "power1.inOut" }, 7.6);
+      tl.to({}, { duration: 0.1 }, 8.9);
+
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

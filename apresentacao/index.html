@@ -1,0 +1,1388 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luso Bonsai · Design System</title>
+<!-- Todos os valores da marca vêm daqui. Mudar a marca = mudar só este ficheiro. -->
+<link rel="stylesheet" href="../design-system/tokens.css">
+<link rel="stylesheet" href="mascaras.css">
+<style>
+  /* Medidas de layout desta página (não são cores nem valores da marca) */
+  :root {
+    --pagina-lado: var(--e-6);
+    --coluna-nome: 280px;
+    --altura-topo: 88px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: var(--altura-topo); }
+  body { margin: 0; background: var(--cor-fundo); color: var(--cor-texto); }
+  img { display: block; max-width: 100%; }
+  h1, h2, h3, h4, p { margin: 0; }
+
+  .display {
+    font-family: var(--fonte-display);
+    font-weight: var(--peso-display);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: var(--entrelinha-titulo);
+    word-break: keep-all;
+  }
+  .sobre {
+    font-family: var(--fonte-texto);
+    font-size: var(--tipo-etiqueta);
+    font-weight: var(--peso-etiqueta);
+    letter-spacing: var(--tracking-etiqueta);
+    text-transform: uppercase;
+    color: var(--cor-texto-2);
+    display: flex; align-items: center; gap: var(--e-2);
+  }
+  .sobre::before { content: ""; width: var(--e-4); height: var(--e-0); background: var(--cor-realce); }
+  .mudo { color: var(--cor-texto-2); }
+
+  .largura { max-width: calc(var(--largura-conteudo) + 2 * var(--pagina-lado)); margin: 0 auto; padding: 0 var(--pagina-lado); }
+
+  /* ── Topo ─────────────────────────────────────────── */
+  .topo { position: sticky; top: 0; z-index: 10; background: var(--cor-fundo); border-bottom: var(--linha); }
+  .topo .largura { height: var(--altura-topo); display: flex; align-items: center; justify-content: space-between; }
+  .topo img { height: var(--logo-min-ecra); width: auto; }
+  .topo nav { display: flex; gap: var(--e-5); }
+  .topo nav a { text-decoration: none; font-size: var(--tipo-corpo); font-weight: var(--peso-subtitulo); color: var(--cor-texto); padding: var(--e-1) 0; border-bottom: 2px solid transparent; transition: border-color var(--dur-normal) var(--curva); }
+  .topo nav a:hover { border-color: var(--cor-realce); }
+
+  /* ── Capa ─────────────────────────────────────────── */
+  .capa { min-height: calc(100vh - var(--altura-topo)); display: flex; align-items: center; padding: var(--e-7) 0; }
+  .capa .largura { width: 100%; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: var(--e-7); align-items: center; }
+  .capa h1 { font-size: var(--tipo-display); margin-top: var(--e-4); }
+  .capa h1 span { color: var(--cor-realce); }
+  .capa .lead { font-size: var(--tipo-subtitulo); line-height: var(--entrelinha-corpo); color: var(--cor-texto-2); max-width: 520px; margin-top: var(--e-4); }
+  .capa .simbolo { display: flex; justify-content: center; align-items: center; gap: var(--e-6); padding: var(--e-6); }
+  .capa .simbolo img { width: 300px; }
+  .capa .chars { flex: 0 0 auto; width: 72px; height: 96px; background: var(--marca-vermelho); align-self: flex-end; }
+  .indice { list-style: none; padding: 0; margin: var(--e-7) 0 0; display: grid; grid-template-columns: repeat(5, 1fr); border-top: var(--linha); }
+  .indice a { display: block; padding: var(--e-3) var(--e-3) var(--e-3) 0; text-decoration: none; color: var(--cor-texto); }
+  .indice b { display: block; font-family: var(--fonte-display); font-weight: var(--peso-display); color: var(--cor-realce); font-size: var(--tipo-subtitulo); margin-bottom: var(--e-1); }
+  .indice span { font-weight: var(--peso-subtitulo); }
+
+  /* ── A casa ─────────────────────────────────────── */
+  .casa { padding: 0 0 var(--e-7); }
+  .casa-foto { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; }
+  .numeros { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--e-4); margin: var(--e-5) 0 0; }
+  .numeros dt { font-size: var(--tipo-etiqueta); font-weight: var(--peso-etiqueta); letter-spacing: var(--tracking-etiqueta); text-transform: uppercase; color: var(--cor-texto-2); }
+  .numeros dd { margin: var(--e-1) 0 0; font-family: var(--fonte-display); font-size: var(--tipo-titulo); letter-spacing: 0.02em; }
+  .numeros dd.sitio { font-family: var(--fonte-texto); font-size: var(--tipo-subtitulo); font-weight: var(--peso-subtitulo); line-height: 1.3; }
+  .foto-larga { grid-column: 1 / -1; width: 100%; aspect-ratio: 21 / 9; object-fit: cover; }
+  .foto-larga.cima { object-position: center 20%; }
+
+  /* ── Secções ──────────────────────────────────────── */
+  .seccao { padding: var(--e-7) 0; border-top: var(--linha); }
+  .seccao > .largura > header { margin-bottom: var(--e-6); }
+  .seccao h2 { font-size: var(--tipo-titulo); margin-top: var(--e-3); font-family: var(--fonte-display); font-weight: var(--peso-display); text-transform: uppercase; letter-spacing: 0.02em; line-height: var(--entrelinha-titulo); }
+  .seccao header p { font-size: var(--tipo-subtitulo); color: var(--cor-texto-2); margin-top: var(--e-3); max-width: 640px; line-height: var(--entrelinha-corpo); }
+
+  .bloco { display: grid; grid-template-columns: var(--coluna-nome) 1fr; gap: var(--e-6); padding: var(--e-6) 0; border-top: var(--linha); }
+  .bloco > .nome h3 { font-size: var(--tipo-subtitulo); font-weight: var(--peso-titulo); }
+  .bloco > .nome p { margin-top: var(--e-2); color: var(--cor-texto-2); max-width: 260px; }
+
+  .bloco.largo { grid-template-columns: 1fr; gap: var(--e-4); }
+  .bloco.largo > .nome { display: flex; align-items: baseline; gap: var(--e-4); }
+  .bloco.largo > .nome p { margin-top: 0; max-width: none; }
+  .painel { background: var(--marca-cinza-claro); padding: var(--e-4); }
+  .legenda { font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); margin-top: var(--e-2); letter-spacing: var(--tracking-etiqueta); text-transform: uppercase; font-weight: var(--peso-etiqueta); }
+
+  /* ── 01 Família ───────────────────────────────────── */
+  .familia { display: grid; gap: var(--e-3); grid-template-columns: 1fr 1fr; }
+  .tile { aspect-ratio: 4 / 3; display: flex; align-items: center; justify-content: center; padding: var(--e-5); border: var(--linha); }
+  .tile img { max-height: 100%; width: auto; object-fit: contain; }
+  .tile.branco { background: var(--marca-branco); }
+  .tile.cinza { background: var(--marca-cinza-claro); border-color: var(--marca-cinza-claro); }
+  .tile.vermelho { background: var(--linha-bonsai); border-color: var(--linha-bonsai); }
+  .tile.preto { background: var(--linha-orquideas); border-color: var(--linha-orquideas); }
+  .ficha { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-5); padding-top: var(--e-2); }
+  .ficha dt { font-size: var(--tipo-etiqueta); font-weight: var(--peso-etiqueta); letter-spacing: var(--tracking-etiqueta); text-transform: uppercase; color: var(--cor-texto-2); margin-bottom: var(--e-1); }
+  .ficha dd { margin: 0; }
+  .cores-manda { display: flex; gap: var(--e-1); align-items: center; }
+  .cores-manda i { width: var(--e-3); height: var(--e-3); border: var(--linha); display: inline-block; }
+
+  /* ── 02 Fundações ─────────────────────────────────── */
+  .cores { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--e-3); }
+  .cor { border: var(--linha); }
+  .cor .amostra { height: 112px; }
+  .cor .info { padding: var(--e-2); }
+  .cor h4 { font-size: var(--tipo-corpo); font-weight: var(--peso-titulo); }
+  .cor .hex { font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); margin-top: var(--e-1); }
+  .cor .tinta { font-size: var(--tipo-etiqueta); margin-top: var(--e-1); }
+  .cor p { font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); margin-top: var(--e-2); line-height: var(--entrelinha-corpo); }
+
+  .letras { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-3); }
+  .letra { background: var(--marca-cinza-claro); padding: var(--e-5); display: flex; flex-direction: column; gap: var(--e-3); }
+  .letra .par { display: flex; gap: var(--e-2); align-items: baseline; font-size: var(--tipo-etiqueta); }
+  .letra .par b { font-weight: var(--peso-titulo); }
+  .letra .amostra-d { font-family: var(--fonte-display); text-transform: uppercase; letter-spacing: 0.02em; font-size: var(--tipo-titulo); line-height: var(--entrelinha-titulo); }
+  .letra .amostra-t { font-size: var(--tipo-subtitulo); line-height: var(--entrelinha-corpo); }
+  .letra .regua { border-top: 1px solid var(--marca-cinza-medio); padding-top: var(--e-2); font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); }
+
+  .logos { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-3); }
+  .logos .tile { aspect-ratio: 1 / 1; }
+  .logos .tile img { max-height: 72%; }
+  .espaco { position: relative; outline: 1px dashed var(--marca-cinza-medio); outline-offset: var(--e-4); }
+  .minimo { display: flex; flex-direction: column; justify-content: center; gap: var(--e-4); padding: var(--e-6) var(--e-5); }
+  .minimo p { line-height: var(--entrelinha-corpo); }
+  .minimo img { height: var(--logo-min-ecra); width: auto; align-self: flex-start; }
+
+  .elementos { display: grid; grid-template-columns: 2fr 2fr 1fr; gap: var(--e-3); }
+  .elementos .tile { aspect-ratio: auto; height: 200px; padding: var(--e-3); }
+  .pincel-vermelho { width: 100%; aspect-ratio: 849 / 293; background: var(--marca-vermelho); }
+  .pincel-cinza { width: 100%; aspect-ratio: 1000 / 229; background: var(--marca-cinza-claro); }
+  .chars-vermelhos { height: 100%; aspect-ratio: 500 / 670; background: var(--marca-vermelho); }
+
+  .fotos { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-3); }
+  .foto-tile { aspect-ratio: 4 / 5; padding: var(--e-3); }
+  .foto-tile-img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+
+  /* ── 03 Aplicações ────────────────────────────────── */
+  .duas { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-3); align-items: start; }
+  .palco { background: var(--marca-cinza-claro); padding: var(--e-6) var(--e-4); display: flex; justify-content: center; align-items: center; gap: var(--e-4); min-height: 100%; }
+
+  /* Etiqueta pendurada */
+  .etiqueta { width: 150px; display: flex; flex-direction: column; align-items: center; }
+  .etiqueta .circ { width: 150px; height: 150px; border-radius: var(--raio-circulo); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: var(--e-2); }
+  .etiqueta .cintura { width: 56px; height: 24px; margin: -8px 0; position: relative; z-index: 1; }
+  .etiqueta.frente .circ, .etiqueta.frente .cintura { background: var(--linha-etiqueta); }
+  .etiqueta.frente .circ.cima span { transform: rotate(180deg); color: var(--marca-branco); font-size: 11px; letter-spacing: 0.04em; }
+  .etiqueta.frente .circ.baixo img { width: 92px; }
+  .etiqueta.verso .circ, .etiqueta.verso .cintura { background: var(--marca-branco); border: 1px solid var(--marca-cinza-medio); }
+  .etiqueta.verso .cintura { border-top: 0; border-bottom: 0; }
+  .etiqueta.verso .display { font-size: var(--tipo-subtitulo); }
+  .etiqueta.verso small { font-size: 11px; line-height: 1.4; display: block; }
+  .etiqueta.verso small b { display: block; }
+  .furo { width: var(--e-2); height: var(--e-2); border-radius: var(--raio-circulo); background: var(--marca-cinza-claro); border: 1px solid var(--marca-cinza-medio); margin: var(--e-1) auto; }
+
+  .real { border: var(--linha); background: var(--marca-branco); padding: var(--e-3); display: flex; align-items: center; justify-content: center; }
+  .real img { max-height: 360px; width: auto; }
+
+  /* Autocolante adubo 200 ml (178 × 123 mm) */
+  .rotulo { width: 100%; max-width: 600px; aspect-ratio: 178 / 123; background: var(--linha-bonsai); color: var(--marca-branco); display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: var(--e-3); padding: var(--e-4) var(--e-3); }
+  .rotulo .col { font-size: 11px; line-height: 1.45; }
+  .rotulo .col b { display: block; font-weight: var(--peso-titulo); margin-bottom: var(--e-0); }
+  .rotulo .col p + b { margin-top: var(--e-1); }
+  .rotulo .centro { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--e-1); }
+  .rotulo .centro .display { font-size: var(--tipo-subtitulo); }
+  .rotulo .foto { width: 112px; height: 112px; border-radius: var(--raio-circulo); overflow: hidden; border: 3px solid var(--marca-branco); }
+  .rotulo .foto img { width: 100%; height: 100%; object-fit: cover; }
+  .rotulo .sub { font-family: var(--fonte-display); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .rotulo .pe { display: flex; align-items: center; justify-content: center; gap: var(--e-2); margin-top: auto; }
+  .rotulo .pe img { width: 34px; }
+  .rotulo .pe span { font-family: var(--fonte-texto); font-weight: var(--peso-titulo); font-size: var(--tipo-etiqueta); }
+
+  /* Banner do site (1200 × 400) */
+  .banner { aspect-ratio: 3 / 1; max-width: 1200px; width: 100%; background: var(--marca-branco); border: var(--linha); display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 100%; position: relative; overflow: hidden; }
+  .banner .texto { padding: var(--e-5) var(--e-7) var(--e-6); display: flex; flex-direction: column; justify-content: center; gap: var(--e-2); position: relative; z-index: 1; }
+  .banner .display { font-size: var(--tipo-titulo); color: var(--cor-realce); }
+  .banner p { color: var(--cor-texto-2); max-width: 340px; }
+  .banner .botao { align-self: flex-start; margin-top: var(--e-1); }
+  .banner .foto { display: flex; align-items: center; justify-content: center; padding: var(--e-4) var(--e-4) var(--e-6); min-height: 0; }
+  .banner .foto img { max-height: 100%; height: auto; width: auto; mix-blend-mode: multiply; }
+  .banner .rodape-pincel { position: absolute; left: 0; right: 0; bottom: 0; height: 48px; background: var(--marca-cinza-claro); }
+
+  /* Posts 1080 × 1350, mostrados a 1/3 */
+  .posts { display: flex; gap: var(--e-4); justify-content: center; }
+  .post-caixa { width: 360px; height: 450px; overflow: hidden; }
+  .post { width: 1080px; height: 1350px; transform: scale(0.3333); transform-origin: 0 0; padding: 96px; display: flex; flex-direction: column; color: var(--marca-branco); }
+  .post.bonsai { background: var(--linha-bonsai); }
+  .post.orquideas { background: var(--linha-orquideas); }
+  .post .foto { width: 560px; height: 560px; border-radius: var(--raio-circulo); background: var(--marca-branco); overflow: hidden; align-self: center; display: flex; align-items: center; justify-content: center; }
+  .post .foto img { width: 86%; height: 86%; object-fit: contain; }
+  .post .display { font-size: 96px; margin-top: 72px; line-height: 1.08; }
+  .post p { font-size: 40px; margin-top: 32px; line-height: 1.35; }
+  .post .assina { margin-top: auto; display: flex; justify-content: flex-end; }
+  .post .assina img { height: 120px; width: auto; }
+
+  /* Página de catálogo A4 */
+  .a4 { width: 100%; max-width: 420px; aspect-ratio: 210 / 297; background: var(--marca-branco); border: var(--linha); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+  .a4 .pincel-topo { width: 100%; aspect-ratio: 849 / 160; background: var(--linha-bonsai); -webkit-mask-size: 100% 183%; mask-size: 100% 183%; -webkit-mask-position: bottom; mask-position: bottom; }
+  .a4 .miolo { padding: var(--e-3) var(--e-5); flex: 1; display: flex; flex-direction: column; gap: var(--e-2); }
+  .a4 .display { font-size: var(--tipo-subtitulo); }
+  .a4 table { border-collapse: collapse; width: 100%; font-size: 11px; font-variant-numeric: tabular-nums; }
+  .a4 th { text-align: left; font-weight: var(--peso-titulo); border-bottom: 1px solid var(--marca-preto); padding: var(--e-0) 0; font-size: 10px; letter-spacing: 0.04em; }
+  .a4 td { padding: 3px 0; border-bottom: 1px solid var(--marca-cinza-claro); }
+  .a4 th:nth-child(n+3), .a4 td:nth-child(n+3) { text-align: right; }
+  .a4 .nota { font-size: 9px; color: var(--cor-texto-2); }
+  .a4 .foto { align-self: flex-end; width: 46%; margin-top: auto; }
+  .a4 .pe { position: relative; height: 56px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: var(--e-1); }
+  .a4 .pe .pincel-cinza { position: absolute; inset: 0; width: auto; aspect-ratio: auto; }
+  .a4 .pe span { position: relative; font-size: 10px; color: var(--cor-texto-2); }
+
+  /* ── 04 Regras ────────────────────────────────────── */
+  .regras { display: grid; gap: var(--e-6); }
+  .regra h3 { font-size: var(--tipo-subtitulo); font-weight: var(--peso-titulo); }
+  .regra > p { color: var(--cor-texto-2); margin-top: var(--e-1); }
+  .par-sn { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-3); }
+  .exemplo { border: var(--linha); }
+  .exemplo .area { height: 220px; display: flex; align-items: center; justify-content: center; padding: var(--e-4); gap: var(--e-3); }
+  .exemplo .marca { padding: var(--e-2) var(--e-3); border-top: var(--linha); font-weight: var(--peso-titulo); display: flex; align-items: center; gap: var(--e-2); }
+  .exemplo .marca::before { content: ""; width: var(--e-3); height: var(--e-0); background: var(--marca-preto); }
+  .exemplo.nao .marca::before { background: var(--marca-cinza-medio); }
+  .exemplo.nao .marca { color: var(--cor-texto-2); }
+  .exemplo .area img { max-height: 100%; width: auto; }
+  .torto { transform: scaleX(1.45); filter: hue-rotate(140deg); }
+  .goshin-ok .botao:hover { background: var(--linha-goshin-alt); color: var(--linha-goshin); }
+  .redondo { border-radius: 9999px !important; background: linear-gradient(90deg, var(--marca-vermelho), var(--marca-preto)) !important; }
+  .area-foto { padding: 0 !important; }
+  .exemplo .area.area-foto img { width: 100%; height: 100%; max-height: none; object-fit: cover; }
+  .filtro { filter: sepia(0.7) saturate(1.8) contrast(1.2); }
+  .sistema { font-family: serif; font-size: 72px; color: var(--marca-vermelho); }
+
+  /* ── Rodapé ───────────────────────────────────────── */
+  .rodape { border-top: var(--linha); padding: var(--e-5) 0 var(--e-4); }
+  .rodape .largura { display: flex; justify-content: space-between; font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); }
+
+
+  /* ── Ícones ───────────────────────────────────────── */
+  .ic { width: var(--icone); height: var(--icone); fill: none; stroke: currentColor; stroke-width: var(--icone-traco); stroke-linecap: round; stroke-linejoin: round; flex: 0 0 auto; }
+  .ic.peq { width: var(--icone-pequeno); height: var(--icone-pequeno); }
+  .icones { display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--e-2); }
+  .icones figure { margin: 0; border: var(--linha); padding: var(--e-3) var(--e-2); display: flex; flex-direction: column; align-items: center; gap: var(--e-2); font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); }
+  .icones .ic { color: var(--cor-texto); }
+  .icones-fundos { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-3); margin-top: var(--e-3); }
+  .icones-fundos > div { padding: var(--e-4); display: flex; gap: var(--e-4); align-items: center; }
+
+  /* ── Fundos e padrões ─────────────────────────────── */
+  .fundos { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-3); }
+  .fundo { position: relative; overflow: hidden; aspect-ratio: 4 / 5; border: var(--linha); display: flex; flex-direction: column; justify-content: flex-end; padding: var(--e-4); }
+  .fundo .t { position: relative; font-family: var(--fonte-display); text-transform: uppercase; letter-spacing: 0.02em; font-size: var(--tipo-subtitulo); }
+  .fundo.f1 .pz { position: absolute; left: 0; right: 0; top: 0; aspect-ratio: 849 / 293; background: var(--marca-vermelho); }
+  .fundo.f2 { background: var(--linha-bonsai); justify-content: center; align-items: center; }
+  .fundo.f2 .circ { position: absolute; width: 86%; aspect-ratio: 1 / 1; background: var(--marca-branco); }
+  .fundo.f2 img { position: relative; width: 62%; mix-blend-mode: multiply; }
+  .fundo.f3 .ch { position: absolute; right: calc(-1 * var(--e-4)); top: var(--e-4); width: 62%; aspect-ratio: 500 / 670; background: var(--marca-vermelho); }
+  .fundo.f3 .t { color: var(--cor-texto); }
+  .nao-fundos { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-3); margin-top: var(--e-4); }
+  .nao-fundos .area { position: relative; overflow: hidden; }
+  .padrao { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(6, 1fr); gap: var(--e-2); padding: var(--e-2); }
+  .padrao i { aspect-ratio: 500 / 670; background: var(--marca-vermelho); }
+  .texto-sobre { position: relative; max-width: 260px; font-size: var(--tipo-etiqueta); line-height: 1.5; }
+  .atras { position: absolute; inset: var(--e-3); background: var(--marca-vermelho); }
+
+  /* ── Movimento ────────────────────────────────────── */
+  .mov { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-3); }
+  .mov .caixa { border: var(--linha); padding: var(--e-4); }
+  .mov .caixa b { font-family: var(--fonte-display); font-weight: var(--peso-display); font-size: var(--tipo-titulo); letter-spacing: 0.02em; display: block; }
+  .mov .caixa span { color: var(--cor-texto-2); font-size: var(--tipo-etiqueta); }
+  .mov .caixa p { margin-top: var(--e-2); }
+  .demo-mov { display: flex; gap: var(--e-3); align-items: center; margin-top: var(--e-4); flex-wrap: wrap; }
+  .bola { width: 96px; height: 96px; background: var(--marca-cinza-claro); display: flex; align-items: center; justify-content: center; font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); }
+  .botao.secundario { background: var(--marca-branco); color: var(--cor-texto); box-shadow: inset 0 0 0 1px var(--marca-preto); }
+  .botao.secundario:hover { background: var(--marca-preto); color: var(--marca-branco); }
+
+  /* ── 03 Componentes ───────────────────────────────── */
+  .cab-loja { border: var(--linha); }
+  .cab-loja .faixa { background: var(--marca-preto); color: var(--marca-branco); font-size: var(--tipo-etiqueta); padding: var(--e-1) var(--e-2); display: flex; justify-content: center; align-items: center; gap: var(--e-1); }
+  .cab-loja .linha1 { display: grid; grid-template-columns: auto 1fr auto; gap: var(--e-5); align-items: center; padding: var(--e-3) var(--e-4); }
+  .cab-loja .linha1 img { height: var(--logo-min-ecra); width: auto; }
+  .pesquisa { height: var(--altura-campo); background: var(--cor-campo); display: flex; align-items: center; justify-content: space-between; padding: 0 var(--e-2); color: var(--cor-texto-2); max-width: 520px; width: 100%; justify-self: center; }
+  .accoes-cab { display: flex; gap: var(--e-4); }
+  .accoes-cab span { display: flex; flex-direction: column; align-items: center; gap: var(--e-0); font-size: var(--tipo-etiqueta); position: relative; }
+  .accoes-cab .conta-n { position: absolute; top: -6px; right: -4px; min-width: 18px; height: 18px; border-radius: var(--raio-circulo); background: var(--marca-vermelho); color: var(--marca-branco); font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: var(--peso-titulo); }
+  .cab-loja nav { display: flex; justify-content: center; gap: var(--e-5); padding: var(--e-2) var(--e-4) var(--e-3); border-top: var(--linha); }
+  .cab-loja nav a { color: var(--cor-texto); text-decoration: none; font-weight: var(--peso-subtitulo); padding-bottom: var(--e-0); border-bottom: 2px solid transparent; transition: border-color var(--dur-rapido) var(--curva); }
+  .cab-loja nav a:hover, .cab-loja nav a.activo { border-color: var(--marca-vermelho); }
+  .rod-loja { border: var(--linha); margin-top: var(--e-4); }
+  .rod-loja .pz { height: 48px; background: var(--marca-cinza-claro); }
+  .rod-loja .cols { background: var(--marca-cinza-claro); display: grid; grid-template-columns: 1.2fr 1fr 1fr 1.2fr; gap: var(--e-4); padding: var(--e-3) var(--e-5) var(--e-5); }
+  .rod-loja h4 { margin: 0 0 var(--e-2); font-size: var(--tipo-etiqueta); letter-spacing: var(--tracking-etiqueta); text-transform: uppercase; }
+  .rod-loja ul { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--e-1); font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); }
+  .rod-loja li { display: flex; gap: var(--e-1); align-items: center; }
+  .rod-loja .legal { background: var(--marca-cinza-claro); border-top: 1px solid var(--marca-branco); padding: var(--e-2) var(--e-5); font-size: 11px; color: var(--cor-texto-2); }
+  .rod-loja img { height: var(--logo-min-ecra); width: auto; margin-bottom: var(--e-2); }
+
+  .botoes { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-3); }
+  .botoes .area { padding: var(--e-5) var(--e-4); display: flex; gap: var(--e-3); flex-wrap: wrap; align-items: center; }
+  .botoes p { font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); padding: 0 var(--e-4) var(--e-4); }
+  .botoes > div { border: var(--linha); }
+  .botao[disabled], .botao.desligado { background: var(--marca-cinza-claro); color: var(--marca-cinza-medio); cursor: not-allowed; }
+  .botao.desligado:hover { background: var(--marca-cinza-claro); }
+  .goshin-botoes .botao:hover { background: var(--linha-goshin-alt); color: var(--linha-goshin); }
+  .goshin-botoes .botao.secundario:hover { background: var(--linha-goshin); color: var(--marca-branco); }
+
+  .selos { display: flex; flex-wrap: wrap; gap: var(--e-2); align-items: center; }
+  .selo { display: inline-flex; align-items: center; gap: var(--e-0); font-size: var(--tipo-etiqueta); font-weight: var(--peso-titulo); padding: var(--e-0) var(--e-1); line-height: 1.4; }
+  .selo.desc { background: var(--marca-vermelho); color: var(--marca-branco); }
+  .selo.novo, .selo.vip { background: var(--marca-preto); color: var(--marca-branco); }
+  .selo.hab { box-shadow: inset 0 0 0 1px var(--marca-preto); }
+  .selo.esg { background: var(--cor-esgotado); color: var(--marca-branco); }
+  .selos-legenda { display: grid; grid-template-columns: auto 1fr; gap: var(--e-2) var(--e-4); margin-top: var(--e-4); align-items: center; font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); }
+
+  .produtos { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-3); }
+  .produto { border: var(--linha); background: var(--marca-branco); display: flex; flex-direction: column; transition: box-shadow var(--dur-rapido) var(--curva); }
+  .produto:hover { box-shadow: inset 0 0 0 1px var(--marca-preto); }
+  .produto .foto { position: relative; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; padding: var(--e-6) var(--e-3) var(--e-3); overflow: hidden; isolation: isolate; }
+  .produto .foto img { position: relative; z-index: 1; max-height: 100%; width: auto; mix-blend-mode: multiply; transition: transform var(--dur-normal) var(--curva); }
+  .produto:hover .foto img { transform: translateY(-4px); }
+  .produto .selos { position: absolute; top: var(--e-2); left: var(--e-2); gap: var(--e-1); z-index: 2; }
+  .produto .info { padding: 0 var(--e-3) var(--e-3); display: flex; flex-direction: column; gap: var(--e-1); flex: 1; }
+  .produto h4 { margin: 0; font-size: var(--tipo-corpo); font-weight: var(--peso-subtitulo); line-height: 1.35; }
+  .produto .meta { font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); }
+  .produto .preco { font-weight: var(--peso-titulo); font-size: var(--tipo-subtitulo); color: var(--cor-realce); display: flex; align-items: baseline; gap: var(--e-1); margin-top: var(--e-1); }
+  .produto .preco s { font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); font-weight: var(--peso-corpo); }
+  .produto .botao { margin-top: auto; justify-content: center; display: flex; gap: var(--e-1); align-items: center; }
+  .produto.goshin .preco { color: var(--linha-goshin); }
+  .produto.goshin .botao:hover { background: var(--linha-goshin-alt); color: var(--linha-goshin); }
+  .produto.esgotado .preco { color: var(--cor-texto-2); }
+  .produto.esgotado .foto img { filter: grayscale(1); opacity: 0.5; }
+
+  .formas { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-3); }
+  .formas figure { margin: 0; }
+  .formas img { border: var(--linha); width: 100%; }
+
+  .fcard { border: var(--linha); padding: var(--e-4); min-height: 240px; display: flex; flex-direction: column; gap: var(--e-3); }
+  .fcard .campo { display: grid; gap: var(--e-1); }
+  .fcard label { font-size: var(--tipo-etiqueta); font-weight: var(--peso-etiqueta); letter-spacing: var(--tracking-etiqueta); text-transform: uppercase; }
+  .fcard .input { height: var(--altura-campo); background: var(--cor-campo); display: flex; align-items: center; padding: 0 var(--e-2); border-bottom: 2px solid transparent; }
+  .fcard .input.foco { outline: var(--foco); outline-offset: 2px; }
+  .fcard .cursor { width: 1px; height: 20px; background: var(--marca-preto); margin-left: 2px; }
+  .fcard .invalido .input { border-bottom-color: var(--cor-erro); }
+  .fcard .erro { display: flex; align-items: center; gap: var(--e-1); color: var(--cor-erro); font-size: var(--tipo-etiqueta); font-weight: var(--peso-titulo); }
+  .fcard .visto { width: 48px; height: 48px; border-radius: var(--raio-circulo); background: var(--cor-sucesso); color: var(--marca-branco); display: flex; align-items: center; justify-content: center; }
+  .fcard h4 { margin: 0; font-size: var(--tipo-subtitulo); }
+  .fcard p { color: var(--cor-texto-2); }
+  .selos-legenda > .selo, .selos-legenda > .selos { justify-self: start; }
+  .avisos { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-3); }
+  .aviso { background: var(--marca-branco); box-shadow: var(--sombra-2); border-left: var(--e-0) solid var(--cor-sucesso); padding: var(--e-3); display: grid; grid-template-columns: auto 1fr auto; gap: var(--e-2); align-items: start; }
+  .aviso.cinza { border-left-color: var(--cor-esgotado); }
+  .aviso b { display: block; }
+  .aviso p { font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); margin-top: var(--e-0); }
+  .aviso .x { color: var(--cor-texto-2); cursor: pointer; background: none; padding: 0; }
+  .aviso .x:hover { background: none; color: var(--cor-texto); }
+  .palco-avisos { background: var(--marca-cinza-claro); padding: var(--e-5); }
+  .toasts { position: fixed; right: var(--e-4); bottom: var(--e-4); z-index: 40; display: grid; gap: var(--e-2); width: 360px; max-width: calc(100vw - 2 * var(--e-2)); }
+  .toasts .aviso { animation: entra var(--dur-normal) var(--curva); }
+  @keyframes entra { from { opacity: 0; transform: translateY(var(--subida)); } to { opacity: 1; transform: none; } }
+
+  .carrinho-demo { position: relative; height: 520px; overflow: hidden; border: var(--linha); background: var(--marca-branco); }
+  .carrinho-demo .veu { position: absolute; inset: 0; background: var(--cor-veu); }
+  .gaveta { background: var(--marca-branco); box-shadow: var(--sombra-2); width: var(--largura-carrinho); max-width: 100%; display: flex; flex-direction: column; }
+  .carrinho-demo .gaveta { position: absolute; right: 0; top: 0; bottom: 0; }
+  .gaveta header { display: flex; justify-content: space-between; align-items: center; padding: var(--e-3) var(--e-4); border-bottom: var(--linha); }
+  .gaveta header h4 { margin: 0; font-size: var(--tipo-subtitulo); font-weight: var(--peso-titulo); }
+  .gaveta .linhas { padding: var(--e-2) var(--e-4); flex: 1; overflow: auto; }
+  .linha-c { display: grid; grid-template-columns: 72px 1fr auto; gap: var(--e-2); padding: var(--e-2) 0; border-bottom: var(--linha); align-items: center; }
+  .linha-c img { width: 72px; height: 72px; object-fit: contain; background: var(--marca-branco); }
+  .linha-c h5 { margin: 0; font-size: var(--tipo-etiqueta); font-weight: var(--peso-subtitulo); line-height: 1.35; }
+  .qtd { display: inline-flex; align-items: center; border: var(--linha); margin-top: var(--e-1); }
+  .qtd span { width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: var(--tipo-etiqueta); }
+  .linha-c .p { font-weight: var(--peso-titulo); font-size: var(--tipo-etiqueta); }
+  .gaveta footer { padding: var(--e-3) var(--e-4) var(--e-4); border-top: var(--linha); display: grid; gap: var(--e-2); }
+  .gaveta .total { display: flex; justify-content: space-between; font-weight: var(--peso-titulo); }
+  .gaveta .portes { display: flex; gap: var(--e-1); align-items: center; font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); }
+  .gaveta footer .botao { justify-content: center; display: flex; }
+  .gaveta-real { position: fixed; inset: 0; z-index: 50; display: none; }
+  .gaveta-real.aberta { display: block; }
+  .gaveta-real .veu { position: absolute; inset: 0; background: var(--cor-veu); animation: aparece var(--dur-normal) var(--curva); }
+  .gaveta-real .gaveta { position: absolute; right: 0; top: 0; bottom: 0; animation: desliza var(--dur-normal) var(--curva); }
+  @keyframes aparece { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes desliza { from { transform: translateX(100%); } to { transform: none; } }
+
+  .acordeao { border-top: 1px solid var(--marca-preto); }
+  .acordeao details { border-bottom: var(--linha); }
+  .acordeao summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: auto 1fr auto; gap: var(--e-2); align-items: center; padding: var(--e-3) 0; font-weight: var(--peso-titulo); font-size: var(--tipo-subtitulo); }
+  .acordeao summary::-webkit-details-marker { display: none; }
+  .acordeao summary .seta { transition: transform var(--dur-normal) var(--curva); }
+  .acordeao details[open] summary .seta { transform: rotate(180deg); }
+  .acordeao summary:focus-visible { outline: var(--foco); outline-offset: 2px; }
+  .acordeao .corpo { padding: 0 0 var(--e-4) calc(var(--icone) + var(--e-2)); color: var(--cor-texto-2); line-height: var(--entrelinha-corpo); max-width: 680px; }
+  .acordeao .corpo p + p { margin-top: var(--e-2); }
+
+  /* ── Email ────────────────────────────────────────── */
+  .email-palco { background: var(--marca-cinza-claro); padding: var(--e-6) var(--e-4); display: flex; justify-content: center; }
+  .email { width: 600px; max-width: 100%; background: var(--marca-branco); }
+  .email .topo-e { padding: var(--e-4) var(--e-5) var(--e-2); }
+  .email .topo-e img { height: var(--logo-min-ecra); width: auto; }
+  .email .pz { height: 72px; background: var(--marca-vermelho); }
+  .email .miolo { padding: var(--e-4) var(--e-5) var(--e-5); }
+  .email .miolo h3 { font-family: var(--fonte-display); font-weight: var(--peso-display); text-transform: uppercase; letter-spacing: 0.02em; font-size: var(--tipo-titulo); line-height: var(--entrelinha-titulo); }
+  .email .miolo p { margin-top: var(--e-3); line-height: var(--entrelinha-corpo); }
+  .email .miolo ul { margin: var(--e-3) 0 0; padding: 0; list-style: none; display: grid; gap: var(--e-1); }
+  .email .miolo li { display: flex; gap: var(--e-2); align-items: center; }
+  .email .miolo .botao { display: inline-flex; margin-top: var(--e-4); }
+  .email .pe-e { background: var(--marca-cinza-claro); padding: var(--e-4) var(--e-5); font-size: 11px; color: var(--cor-texto-2); line-height: 1.6; }
+
+  /* ── Carrossel ────────────────────────────────────── */
+  .carrossel { display: flex; gap: var(--e-3); justify-content: flex-start; overflow-x: auto; padding-bottom: var(--e-2); }
+  .slide-caixa { width: 270px; height: 338px; overflow: hidden; flex: 0 0 auto; }
+  .slide { width: 1080px; height: 1350px; transform: scale(0.25); transform-origin: 0 0; padding: 96px; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+  .slide.vermelho { background: var(--linha-bonsai); color: var(--marca-branco); }
+  .slide.branco { background: var(--marca-branco); color: var(--cor-texto); box-shadow: inset 0 0 0 4px var(--marca-cinza-claro); }
+  .slide .foto { width: 600px; height: 600px; border-radius: var(--raio-circulo); background: var(--marca-branco); overflow: hidden; align-self: center; display: flex; align-items: center; justify-content: center; }
+  .slide .foto img { width: 86%; height: 86%; object-fit: contain; }
+  .slide .display { font-size: 96px; line-height: 1.08; }
+  .slide .num { font-family: var(--fonte-display); font-size: 200px; color: var(--marca-vermelho); line-height: 1; }
+  .slide .sub { font-size: 40px; line-height: 1.35; margin-top: 32px; }
+  .slide .rodape-s { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; font-size: 32px; }
+  .slide .rodape-s img { height: 120px; width: auto; }
+  .slide .ic-grande { width: 120px; height: 120px; stroke-width: 1.75; }
+  .slide .chs { position: absolute; right: -60px; top: 96px; width: 420px; aspect-ratio: 500 / 670; background: var(--marca-cinza-claro); }
+  .slide .rel { position: relative; }
+
+  /* ── LP no deck ───────────────────────────────────── */
+  .lp-mostra { display: grid; grid-template-columns: 1.4fr 0.6fr; gap: var(--e-3); align-items: start; }
+  .lp-mostra .ecra { border: var(--linha); max-height: 440px; overflow: hidden; }
+  .ligacao-lp { display: inline-flex; margin-top: var(--e-4); text-decoration: none; }
+  .lp-mostra .tel { border: var(--linha); max-height: 440px; overflow: hidden; }
+  .lp-mostra .ligacao { display: inline-flex; align-items: center; gap: var(--e-1); margin-top: var(--e-3); }
+  .estados { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-3); margin-top: var(--e-4); }
+  .estados img { border: var(--linha); width: 100%; }
+
+  /* ── Aparecer ao fazer scroll ─────────────────────── */
+  .revelar { opacity: 0; transform: translateY(var(--subida)); transition: opacity var(--dur-entrada) var(--curva), transform var(--dur-entrada) var(--curva); }
+  .revelar.visto { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .revelar { opacity: 1; transform: none; transition: none; }
+    .gaveta-real .veu, .gaveta-real .gaveta, .toasts .aviso { animation: none; }
+  }
+
+
+  /* ── Padrões ──────────────────────────────────────── */
+  .pd-tres { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-3); }
+  .pd h4, .pd-sub { margin: 0; font-size: var(--tipo-subtitulo); font-weight: var(--peso-titulo); }
+  .pd h4 { margin-top: var(--e-3); }
+  .pd p { color: var(--cor-texto-2); margin-top: var(--e-1); font-size: var(--tipo-etiqueta); line-height: 1.5; }
+  .pd .pd-origem { color: var(--cor-texto); font-weight: var(--peso-subtitulo); }
+  .pd-sub { margin: var(--e-6) 0 var(--e-3); }
+  .pd-amostra { position: relative; overflow: hidden; aspect-ratio: 4 / 3; border: var(--linha); background: var(--marca-branco); }
+  .pd-amostra .pz { position: absolute; left: 0; right: 0; top: 0; height: var(--padrao-pincel-altura); background: var(--marca-vermelho); }
+  .pd-amostra .pr { position: absolute; left: 0; right: 0; bottom: 0; height: var(--padrao-pincel-altura); background: var(--marca-cinza-claro); }
+  .pd-amostra.a2 { background: var(--linha-bonsai); display: flex; align-items: center; justify-content: center; }
+  .pd-amostra.a2 .circ { width: 62%; aspect-ratio: 1 / 1; background: var(--marca-branco); }
+  .pd-amostra.a3 .ch { position: absolute; right: var(--e-3); top: var(--e-3); width: var(--padrao-caracteres); aspect-ratio: 500 / 670; background: var(--marca-vermelho); }
+
+  .pd-linhas { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--e-3); }
+  .pd-linhas figure, .pd-compostos figure { margin: 0; }
+  .pd-linhas figcaption, .pd-compostos figcaption { font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); margin-top: var(--e-2); line-height: 1.5; }
+  .pd-linhas figcaption b { color: var(--cor-texto); }
+  .pv { position: relative; overflow: hidden; aspect-ratio: 4 / 5; display: flex; align-items: center; justify-content: center; border: var(--linha); }
+  .pv .circ { width: var(--padrao-circulo); aspect-ratio: 1 / 1; }
+  .pv .ch { position: absolute; right: var(--e-3); bottom: var(--e-3); width: 30%; aspect-ratio: 500 / 670; }
+  .pv img { position: absolute; width: 60%; height: auto; }
+  .v-bonsai-vermelho { background: var(--linha-bonsai); }
+  .v-bonsai-vermelho .circ { background: var(--marca-branco); }
+  .v-bonsai-vermelho img { width: 40%; mix-blend-mode: multiply; }
+  .v-bonsai-branco { background: var(--marca-branco); }
+  .v-bonsai-branco .pz { position: absolute; left: 0; right: 0; top: 0; height: var(--padrao-pincel-altura); background: var(--marca-vermelho); }
+  .v-bonsai-branco .ch { background: var(--marca-vermelho); top: var(--e-3); bottom: auto; width: var(--padrao-caracteres); }
+  .v-orchis { background: var(--linha-orquideas); }
+  .v-orchis .circ { background: var(--marca-branco); }
+  .v-orchis img { width: 46%; mix-blend-mode: multiply; }
+  .v-goshin { background: var(--marca-branco); }
+  .v-goshin .circ { background: var(--linha-goshin-alt); width: 86%; }
+  .v-goshin img { width: 58%; }
+
+  .pd-compostos { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-4) var(--e-3); align-items: start; }
+  .cp { position: relative; overflow: hidden; border: var(--linha); }
+  .cp .t { font-family: var(--fonte-display); text-transform: uppercase; letter-spacing: 0.02em; line-height: 1.1; }
+  .post-c { aspect-ratio: 4 / 5; background: var(--linha-bonsai); }
+  .post-c .circ { position: absolute; left: 50%; top: var(--e-5); transform: translateX(-50%); width: 64%; aspect-ratio: 1 / 1; background: var(--marca-branco); }
+  .post-c img { position: absolute; left: 50%; top: calc(var(--e-5) + var(--e-3)); transform: translateX(-50%); width: 34%; mix-blend-mode: multiply; }
+  .post-c .t { position: absolute; left: var(--e-4); right: var(--e-4); bottom: var(--e-4); color: var(--marca-branco); font-size: var(--tipo-titulo); }
+  .email-c { aspect-ratio: 4 / 5; background: var(--marca-branco); display: flex; flex-direction: column; }
+  .email-c .lg { height: var(--logo-min-ecra); width: auto; margin: var(--e-4) var(--e-4) var(--e-2); align-self: flex-start; }
+  .email-c .pz { width: 100%; height: 72px; background: var(--marca-vermelho); }
+  .email-c .t { margin: var(--e-4) var(--e-4) 0; font-size: var(--tipo-titulo); }
+  .email-c .s { margin: var(--e-2) var(--e-4) 0; color: var(--cor-texto-2); }
+  .cp-banner, .cp-lona { grid-column: 1 / -1; }
+  .banner-c { aspect-ratio: 5 / 2; background: var(--marca-branco); display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
+  .banner-c .ch { position: absolute; right: 12%; top: 8%; height: 84%; aspect-ratio: 500 / 670; background: var(--padrao-suave); }
+  .banner-c .tx { position: relative; padding: 0 var(--e-5) var(--e-5); display: grid; gap: var(--e-2); }
+  .banner-c .t { color: var(--cor-realce); font-size: var(--tipo-titulo); }
+  .banner-c .s { color: var(--cor-texto-2); }
+  .banner-c img { position: relative; height: 74%; width: auto; justify-self: center; align-self: start; margin-top: 5%; mix-blend-mode: multiply; }
+  .banner-c .pr { position: absolute; left: 0; right: 0; bottom: 0; height: 40px; background: var(--marca-cinza-claro); }
+  .lona-c { aspect-ratio: 38 / 10; background: var(--linha-orquideas); display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: var(--e-5); padding: 0 var(--e-6); }
+  .lona-c .ft { position: relative; height: 80%; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; }
+  .lona-c .ft .circ { position: absolute; inset: 0; background: var(--marca-branco); }
+  .lona-c .ft img { position: relative; height: 82%; width: auto; mix-blend-mode: multiply; }
+  .lona-c .t { color: var(--marca-branco); font-size: var(--tipo-titulo); }
+  .lona-c .lg { height: 56px; width: auto; }
+
+  .pd-nao { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-3); }
+  .pd-nao .area { position: relative; overflow: hidden; }
+  .pequeno { position: relative; display: flex; align-items: center; gap: var(--e-2); padding: var(--e-3); }
+  .pequeno .ch { position: absolute; inset: -12px 30%; background: var(--marca-vermelho); }
+  .pequeno .selo, .pequeno .preco-p { position: relative; }
+  .preco-p { font-weight: var(--peso-titulo); font-size: var(--tipo-subtitulo); color: var(--cor-realce); }
+  .juntos { position: absolute; inset: 0; background: var(--linha-bonsai); }
+  .juntos .pz { position: absolute; left: 0; right: 0; top: 0; height: 30%; background: var(--marca-branco); }
+  .juntos .circ { position: absolute; left: 10%; bottom: 8%; width: 46%; aspect-ratio: 1 / 1; background: var(--marca-branco); }
+  .juntos .ch { position: absolute; right: 8%; bottom: 8%; height: 70%; aspect-ratio: 500 / 670; background: var(--marca-preto); }
+  .compete { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .compete .ch { position: absolute; height: 92%; aspect-ratio: 500 / 670; background: var(--marca-vermelho); }
+  .compete img { position: relative; height: 80%; width: auto; mix-blend-mode: multiply; }
+  .goshin-mal { position: absolute; inset: 0; background: var(--marca-vermelho); display: flex; align-items: center; justify-content: center; }
+  .goshin-mal .circ { position: absolute; height: 88%; aspect-ratio: 1 / 1; background: var(--marca-branco); }
+  .goshin-mal img { position: relative; height: 66% !important; width: auto; }
+
+  .reel { display: grid; grid-template-columns: 360px 1fr; gap: var(--e-6); align-items: start; }
+  .reel video { width: 360px; max-width: 100%; aspect-ratio: 9 / 16; background: var(--marca-cinza-claro); display: block; }
+  .reel-regras { list-style: none; padding: 0; margin: 0; display: grid; gap: var(--e-3); max-width: 560px; }
+  .reel-regras li { padding-left: var(--e-3); border-left: var(--e-0) solid var(--marca-vermelho); color: var(--cor-texto-2); line-height: var(--entrelinha-corpo); }
+  .reel-regras b { color: var(--cor-texto); }
+  @media (max-width: 900px) {
+    :root { --pagina-lado: var(--e-2); }
+    .topo nav { display: none; }
+    .capa .largura, .bloco, .familia, .ficha, .letras, .duas, .par-sn { grid-template-columns: 1fr; }
+    .cores, .logos, .numeros { grid-template-columns: 1fr 1fr; }
+    .fotos { grid-template-columns: 1fr; }
+    .elementos { grid-template-columns: 1fr; }
+    .indice { grid-template-columns: 1fr 1fr; }
+    .posts { flex-direction: column; align-items: center; }
+    .icones { grid-template-columns: repeat(3, 1fr); }
+    .pd-tres, .pd-compostos, .pd-nao { grid-template-columns: 1fr; }
+    .pd-linhas { grid-template-columns: 1fr 1fr; }
+    .banner-c { aspect-ratio: auto; grid-template-columns: 1fr; padding: var(--e-4) 0 var(--e-6); }
+    .banner-c img { height: 200px; }
+    .lona-c { aspect-ratio: auto; grid-template-columns: 1fr; padding: var(--e-4); gap: var(--e-3); }
+    .lona-c .ft { height: 200px; }
+    .reel { grid-template-columns: 1fr; }
+    .icones-fundos, .fundos, .nao-fundos, .mov, .botoes, .produtos, .formas, .avisos, .lp-mostra, .estados { grid-template-columns: 1fr; }
+    .cab-loja .linha1 { grid-template-columns: auto 1fr; }
+    .cab-loja .pesquisa { display: none; }
+    .cab-loja nav { overflow-x: auto; justify-content: flex-start; gap: var(--e-3); white-space: nowrap; }
+    .rod-loja .cols { grid-template-columns: 1fr 1fr; padding: var(--e-3); }
+    .carrinho-demo { height: 560px; }
+    .email .miolo, .email .topo-e, .email .pe-e { padding-left: var(--e-3); padding-right: var(--e-3); }
+    .bloco > * { min-width: 0; }
+    .bloco.largo > .nome { flex-direction: column; gap: var(--e-1); }
+    .palco { flex-wrap: wrap; padding: var(--e-4) var(--e-2); }
+    .post-caixa { width: 324px; height: 405px; }
+    .post { transform: scale(0.3); }
+    .rotulo { grid-template-columns: 1fr; aspect-ratio: auto; }
+    .banner { aspect-ratio: auto; grid-template-columns: 1fr; }
+    .banner .foto img { max-height: 240px; }
+  }
+</style>
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></symbol>
+  <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+  <symbol id="i-droplet" viewBox="0 0 24 24"><path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z"/></symbol>
+  <symbol id="i-sprout" viewBox="0 0 24 24"><path d="M7 20h10"/><path d="M10 20c5.5-2.5.8-6.4 3-10"/><path d="M9.5 9.4c1.1.8 1.8 2.2 2.3 3.7-2 .4-3.5.4-4.8-.3-1.2-.6-2.3-1.9-3-4.2 2.8-.5 4.4 0 5.5.8z"/><path d="M14.1 6a7 7 0 0 0-1.1 4c1.9-.1 3.3-.6 4.3-1.4 1-1 1.6-2.3 1.7-4.6-2.7.1-4 1-4.9 2z"/></symbol>
+  <symbol id="i-scissors" viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"/><path d="M8.12 8.12 12 12"/><path d="M20 4 8.12 15.88"/><circle cx="6" cy="18" r="3"/><path d="M14.8 14.8 20 20"/></symbol>
+  <symbol id="i-shovel" viewBox="0 0 24 24"><path d="M2 22v-5l5-5 5 5-5 5z"/><path d="M9.5 14.5 16 8"/><path d="m17 2 5 5-.5.5a3.54 3.54 0 0 1-5 0a3.54 3.54 0 0 1 0-5L17 2"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></symbol>
+  <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 12h16M4 6h16M4 18h16"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C10 3 12 8 12 8s2-5 4.5-5a2.5 2.5 0 0 1 0 5"/></symbol>
+  <symbol id="i-minus" viewBox="0 0 24 24"><path d="M5 12h14"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z"/></symbol>
+</svg>
+
+<header class="topo">
+  <div class="largura">
+    <a href="#capa" aria-label="Início"><img src="img/simbolo-letras.png" alt="Luso Bonsai"></a>
+    <nav>
+      <a href="#familia">A família</a>
+      <a href="#fundacoes">Fundações</a>
+      <a href="#componentes">Componentes</a>
+      <a href="#aplicacoes">Aplicações</a>
+      <a href="#regras">Regras</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ CAPA ══════════════════════════════════════════════ -->
+<section class="capa" id="capa">
+  <div class="largura">
+    <div>
+      <p class="sobre">Design system · Outubro 2026</p>
+      <h1 class="display">A arte do Bonsai,<br><span>desde 1996.</span></h1>
+      <p class="lead">Cores, letras, componentes e regras num só sítio. Para que cada etiqueta, rótulo, lona e página fale como a Luso Bonsai.</p>
+      <ol class="indice">
+        <li><a href="#familia"><b>01</b><span>A família</span></a></li>
+        <li><a href="#fundacoes"><b>02</b><span>Fundações</span></a></li>
+        <li><a href="#componentes"><b>03</b><span>Componentes</span></a></li>
+        <li><a href="#aplicacoes"><b>04</b><span>Aplicações</span></a></li>
+        <li><a href="#regras"><b>05</b><span>Regras</span></a></li>
+      </ol>
+    </div>
+    <div class="simbolo">
+      <img src="img/simbolo.png" alt="Símbolo Luso Bonsai: a árvore sobre o círculo rasurado">
+      <div class="chars m-caracteres" role="img" aria-label="盆栽, árvore em vaso"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ A CASA (faixa de imagem) ══════════════════════════ -->
+<section class="casa">
+  <div class="largura">
+    <img class="casa-foto" src="img/gerada-viveiro.jpg" alt="Viveiro de Bonsai com luz lateral da manhã">
+    <dl class="numeros">
+      <div><dt>Desde</dt><dd>1996</dd></div>
+      <div><dt>Bonsai em stock</dt><dd>50.000</dd></div>
+      <div><dt>Instalações</dt><dd>40.000 m²</dd></div>
+      <div><dt>Onde</dt><dd class="sitio">Santo Isidro de Pegões, Montijo</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ══ 01 A FAMÍLIA ══════════════════════════════════════ -->
+<section class="seccao" id="familia">
+  <div class="largura">
+    <header>
+      <p class="sobre">01 · A família</p>
+      <h2>Uma marca, cinco nomes</h2>
+      <p>O símbolo é a base de tudo. Cada linha tem uma cor que manda, e só uma.</p>
+    </header>
+
+    <div class="bloco">
+      <div class="nome"><h3>Luso Bonsai</h3><p>A marca-mãe. Assina a empresa e tudo o que não pertence a uma linha.</p></div>
+      <div class="familia">
+        <div class="tile branco"><img src="img/simbolo-letras.png" alt="Logótipo Luso Bonsai"></div>
+        <div class="tile cinza"><img src="../design-system/entrada/renders/peca-06-cartao-verso.png" alt="Verso do cartão de visita real"></div>
+        <dl class="ficha">
+          <div><dt>Cor que manda</dt><dd class="cores-manda"><i style="background:var(--marca-vermelho)"></i><i style="background:var(--marca-preto)"></i>Vermelho e preto, sobre branco</dd></div>
+          <div><dt>Quando se usa</dt><dd>Cartões, catálogos, lonas de feira, site, documentos.</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="nome"><h3>Bonsai</h3><p>A linha de produtos para quem cuida de Bonsai.</p></div>
+      <div class="familia">
+        <div class="tile vermelho"><img src="img/simbolo-sobre-vermelho.png" alt="Símbolo sobre vermelho"></div>
+        <div class="tile cinza"><img src="../design-system/entrada/renders/peca-08-autocolante-adubo-bonsai.png" alt="Autocolante real Bio Bonsai"></div>
+        <dl class="ficha">
+          <div><dt>Cor que manda</dt><dd class="cores-manda"><i style="background:var(--linha-bonsai)"></i>Fundo vermelho</dd></div>
+          <div><dt>Quando se usa</dt><dd>Adubos, substratos, folhetos de cuidados, etiquetas das árvores.</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="nome"><h3>Orchis by Luso Bonsai</h3><p>A linha de orquídeas e plantas especiais.</p></div>
+      <div class="familia">
+        <div class="tile preto"><img src="img/orchis-negativo.png" alt="Logótipo Orchis by Luso Bonsai"></div>
+        <div class="tile cinza"><img src="../design-system/entrada/renders/peca-17-autocolante-adubo-orquideas.png" alt="Autocolante real Nutri Orquídeas"></div>
+        <img class="foto-larga" src="img/gerada-orquidea.jpg" alt="Orquídea branca sobre fundo escuro">
+        <dl class="ficha">
+          <div><dt>Cor que manda</dt><dd class="cores-manda"><i style="background:var(--linha-orquideas)"></i>Fundo preto</dd></div>
+          <div><dt>Quando se usa</dt><dd>Adubos e substratos de orquídeas, catálogo de orquídeas, lona de orquídeas.</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="nome"><h3>Goshin</h3><p>Premium Bonsai Tools. A marca própria de ferramentas.</p></div>
+      <div class="familia">
+        <div class="tile branco"><img src="img/goshin.png" alt="Logótipo Goshin Premium Bonsai Tools"></div>
+        <div class="tile branco" style="padding: var(--e-2)"><img src="img/site-alicate-goshin.jpg" alt="Alicate Goshin no blister, foto real do site"></div>
+        <img class="foto-larga cima" src="img/gerada-goshin-maos.jpg" alt="Mãos a podar um Bonsai com uma tesoura preta">
+        <dl class="ficha">
+          <div><dt>Cor que manda</dt><dd class="cores-manda"><i style="background:var(--linha-goshin)"></i><i style="background:var(--marca-branco)"></i><i style="background:var(--linha-goshin-alt)"></i>Preto e branco. Nunca vermelho.</dd></div>
+          <div><dt>Quando se usa</dt><dd>Blisters, autocolantes e material de feira das ferramentas premium. Aço inox com 13% de crómio, dureza HRC 54-56.</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="nome"><h3>Basic</h3><p>Bonsai Tools. A gama de ferramentas de entrada.</p></div>
+      <div class="familia">
+        <div class="tile vermelho"><div class="chars-vermelhos m-caracteres" style="background:var(--marca-branco); height:80%"></div></div>
+        <div class="tile cinza"><img src="../design-system/entrada/renders/peca-09-blister-basic.png" alt="Blister real Bonsai Tools"></div>
+        <dl class="ficha">
+          <div><dt>Cor que manda</dt><dd class="cores-manda"><i style="background:var(--linha-bonsai)"></i>Vermelho, como a linha Bonsai</dd></div>
+          <div><dt>Quando se usa</dt><dd>Blisters das ferramentas de entrada. Os caracteres 盆栽 fazem de logótipo.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 02 FUNDAÇÕES ══════════════════════════════════════ -->
+<section class="seccao" id="fundacoes">
+  <div class="largura">
+    <header>
+      <p class="sobre">02 · Fundações</p>
+      <h2>As peças que se repetem</h2>
+      <p>Quatro cores, duas letras, um símbolo. Cada uma com o valor para o ecrã e para a gráfica.</p>
+    </header>
+
+    <div class="bloco">
+      <div class="nome"><h3>Cores</h3><p>Vermelho, preto, cinza e branco. Nada mais.</p></div>
+      <div class="cores">
+        <div class="cor"><div class="amostra" style="background:var(--marca-vermelho)"></div><div class="info"><h4>Vermelho</h4><div class="hex" data-token="--marca-vermelho"></div><div class="tinta">C0 M100 Y100 K0 · Pantone 485</div><p>Linha Bonsai, símbolo, preços. Texto branco só grande e grosso.</p></div></div>
+        <div class="cor"><div class="amostra" style="background:var(--marca-preto)"></div><div class="info"><h4>Preto</h4><div class="hex" data-token="--marca-preto"></div><div class="tinta">K100 · fundos C100 M100 Y100 K100</div><p>Texto, linhas Orchis e Goshin, botões.</p></div></div>
+        <div class="cor"><div class="amostra" style="background:var(--marca-branco); border-bottom: var(--linha)"></div><div class="info"><h4>Branco</h4><div class="hex" data-token="--marca-branco"></div><div class="tinta">Papel</div><p>O fundo de quase tudo.</p></div></div>
+        <div class="cor"><div class="amostra" style="background:var(--marca-cinza-escuro)"></div><div class="info"><h4>Cinza escuro</h4><div class="hex" data-token="--marca-cinza-escuro"></div><div class="tinta">Frente da etiqueta</div><p>Etiqueta pendurada, texto secundário.</p></div></div>
+        <div class="cor"><div class="amostra" style="background:var(--marca-cinza-medio)"></div><div class="info"><h4>Cinza 50</h4><div class="hex" data-token="--marca-cinza-medio"></div><div class="tinta">K50</div><p>Contornos e pormenores.</p></div></div>
+        <div class="cor"><div class="amostra" style="background:var(--marca-cinza-goshin)"></div><div class="info"><h4>Cinza 40</h4><div class="hex" data-token="--marca-cinza-goshin"></div><div class="tinta">K40</div><p>Fundo alternativo da linha Goshin.</p></div></div>
+        <div class="cor"><div class="amostra" style="background:var(--marca-cinza-claro)"></div><div class="info"><h4>Cinza 10</h4><div class="hex" data-token="--marca-cinza-claro"></div><div class="tinta">K10</div><p>Pincelada de rodapé, filetes, painéis.</p></div></div>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="nome"><h3>Letras</h3><p>Uma letra quadrada para o nome. Uma letra limpa para tudo o que se lê.</p></div>
+      <div class="letras">
+        <div class="letra">
+          <div class="par"><b>Títulos</b><span class="mudo">Gráfica: Calamitech · Ecrã: Russo One</span></div>
+          <div class="amostra-d">Bio Bonsai</div>
+          <div class="regua">Sempre em maiúsculas. Uma vez por peça: o nome do produto ou o título principal.</div>
+        </div>
+        <div class="letra">
+          <div class="par"><b>Texto</b><span class="mudo">Gráfica: Clan OT · Ecrã: Fira Sans</span></div>
+          <div class="amostra-t">Bioestimulante natural líquido à base de algas.</div>
+          <div class="regua">Tudo o que se lê: instruções, composição, catálogo, site.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="nome"><h3>Logótipo</h3><p>Usa-se sempre o ficheiro. Nunca se redesenha.</p></div>
+      <div>
+        <div class="logos">
+          <div><div class="tile branco"><img src="img/simbolo-letras.png" alt=""></div><p class="legenda">Com letras · sobre branco</p></div>
+          <div><div class="tile vermelho"><img src="img/simbolo-sobre-vermelho.png" alt=""></div><p class="legenda">Sobre vermelho · sol a branco</p></div>
+          <div><div class="tile" style="background:var(--linha-etiqueta); border-color:var(--linha-etiqueta)"><img src="img/simbolo-letras-brancas.png" alt=""></div><p class="legenda">Sobre cinza · letras a branco</p></div>
+        </div>
+        <div class="duas" style="margin-top: var(--e-5); align-items: stretch">
+          <div class="painel" style="display:flex; justify-content:center; padding: var(--e-7) var(--e-5)">
+            <img class="espaco" src="img/simbolo-letras.png" alt="" style="width:120px">
+          </div>
+          <div class="painel minimo">
+            <img src="img/simbolo-letras.png" alt="">
+            <p>Espaço livre à volta: pelo menos a altura do vaso.<br>Tamanho mínimo: <b>15 mm</b> impresso, <b>48 px</b> no ecrã.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="nome"><h3>Fotografia</h3><p>A planta é a protagonista. Luz natural, cores verdadeiras, sem filtros.</p></div>
+      <div class="fotos">
+        <div><div class="tile branco foto-tile"><img src="img/site-sobreiro.jpg" alt="Sobreiro Bonsai recortado sobre branco"></div><p class="legenda">Produto · recortado sobre branco</p></div>
+        <div><img class="foto-tile-img" src="img/gerada-viveiro.jpg" alt=""><p class="legenda">Ambiente · luz lateral da manhã</p></div>
+        <div><img class="foto-tile-img" src="img/gerada-goshin-maos.jpg" alt=""><p class="legenda">Mãos a trabalhar · Goshin</p></div>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="nome"><h3>Pincel</h3><p>A pincelada e os caracteres ligam as peças todas.</p></div>
+      <div>
+        <div class="elementos">
+          <div><div class="tile branco"><div class="pincel-vermelho m-pincel-topo"></div></div><p class="legenda">Pincelada de topo</p></div>
+          <div><div class="tile branco"><div class="pincel-cinza m-pincel-rodape"></div></div><p class="legenda">Pincelada de rodapé</p></div>
+          <div><div class="tile branco"><div class="chars-vermelhos m-caracteres"></div></div><p class="legenda">盆栽 · árvore em vaso</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloco revelar">
+      <div class="nome"><h3>Fundos e padrões</h3><p>Só três, todos tirados das peças impressas. Ocupam um canto, uma faixa ou uma moldura. Nunca o fundo inteiro.</p></div>
+      <div>
+        <div class="pd-tres">
+          <article class="pd">
+            <div class="pd-amostra a1"><div class="pz m-pincel-topo"></div><div class="pr m-pincel-rodape"></div></div>
+            <h4>Pincelada</h4>
+            <p class="pd-origem">Origem: folheto (peça 4), catálogos (peças 21 e 22), cartão de visita (peça 6).</p>
+            <p>Faixa de topo na cor da linha; faixa de rodapé em cinza claro.</p>
+          </article>
+          <article class="pd">
+            <div class="pd-amostra a2"><div class="circ m-circulo"></div></div>
+            <h4>Círculo de pincel</h4>
+            <p class="pd-origem">Origem: verso do cartão (peça 6), autocolantes da caixa (5), Goshin (12) e das terras (18).</p>
+            <p>Moldura de uma planta ou de um selo. Um por peça.</p>
+          </article>
+          <article class="pd">
+            <div class="pd-amostra a3"><div class="ch m-caracteres"></div></div>
+            <h4>盆栽 a pincel</h4>
+            <p class="pd-origem">Origem: caracteres oficiais (peça 23), blister Basic (peça 9).</p>
+            <p>Num canto, grande, numa só cor. Nunca escritos com uma letra do computador.</p>
+          </article>
+        </div>
+
+        <h4 class="pd-sub">Por linha</h4>
+        <div class="pd-linhas">
+          <figure><div class="pv v-bonsai-vermelho"><div class="circ m-circulo"></div><img src="img/site-sobreiro.jpg" alt=""></div><figcaption><b>Bonsai</b> · sobre vermelho: círculo a branco</figcaption></figure>
+          <figure><div class="pv v-bonsai-branco"><div class="ch m-caracteres"></div></div><figcaption><b>Bonsai</b> · sobre branco: 盆栽 a vermelho</figcaption></figure>
+          <figure><div class="pv v-orchis"><div class="circ m-circulo"></div><img src="img/orquidea-brassia.jpg" alt=""></div><figcaption><b>Orchis</b> · sobre preto: círculo a branco</figcaption></figure>
+          <figure><div class="pv v-goshin"><div class="circ m-circulo"></div><img src="img/goshin.png" alt=""></div><figcaption><b>Goshin</b> · círculo em cinza. Nunca vermelho</figcaption></figure>
+        </div>
+
+        <h4 class="pd-sub">Compostos</h4>
+        <div class="pd-compostos">
+          <figure class="cp-post"><div class="cp post-c">
+            <div class="circ m-circulo"></div><img src="img/site-sobreiro.jpg" alt="">
+            <span class="t">Deixe o seu Bonsai num hotel</span>
+          </div><figcaption>Fundo de post · vermelho, círculo, planta, título</figcaption></figure>
+          <figure class="cp-email"><div class="cp email-c">
+            <img class="lg" src="img/simbolo-letras.png" alt="">
+            <div class="pz m-pincel-topo"></div>
+            <span class="t">O seu eBook chegou</span>
+            <span class="s">Os cinco cuidados que decidem tudo.</span>
+          </div><figcaption>Faixa de email · logótipo, pincelada, título</figcaption></figure>
+          <figure class="cp-banner"><div class="cp banner-c">
+            <div class="ch m-caracteres"></div>
+            <div class="tx"><span class="t">Mais de 100 espécies</span><span class="s">Interior, exterior, mediterrâneo e dupla localização.</span></div>
+            <img src="img/bonsai-bagas.jpg" alt="">
+            <div class="pr m-pincel-rodape"></div>
+          </div><figcaption>Banner · 盆栽 suave por trás da planta, pincelada de rodapé</figcaption></figure>
+          <figure class="cp-lona"><div class="cp lona-c">
+            <div class="ft"><div class="circ m-circulo"></div><img src="img/orquidea-brassia.jpg" alt=""></div>
+            <span class="t">Orquídeas e plantas especiais</span>
+            <img class="lg" src="img/orchis-negativo.png" alt="">
+          </div><figcaption>Lona de feira · Orchis sobre preto</figcaption></figure>
+        </div>
+
+        <h4 class="pd-sub">O que não se faz</h4>
+        <div class="pd-nao">
+          <div class="exemplo nao"><div class="area"><div class="padrao" aria-hidden="true"><i class="m-caracteres"></i><i class="m-caracteres"></i><i class="m-caracteres"></i><i class="m-caracteres"></i><i class="m-caracteres"></i><i class="m-caracteres"></i></div></div><div class="marca">Não · repetido como papel de parede</div></div>
+          <div class="exemplo nao"><div class="area"><div class="atras m-caracteres"></div><p class="texto-sobre">Regar abundantemente a terra até sair água pelos furos de drenagem, a fim de humedecer uniformemente o solo.</p></div><div class="marca">Não · atrás de texto corrido</div></div>
+          <div class="exemplo nao"><div class="area"><div class="pequeno"><div class="ch m-caracteres"></div><span class="selo desc">-9%</span><span class="preco-p">45,50 €</span></div></div><div class="marca">Não · atrás de texto pequeno (preço, selo)</div></div>
+          <div class="exemplo nao"><div class="area"><div class="juntos"><div class="pz m-pincel-topo"></div><div class="circ m-circulo"></div><div class="ch m-caracteres"></div></div></div><div class="marca">Não · dois ou mais padrões juntos</div></div>
+          <div class="exemplo nao"><div class="area"><div class="compete"><div class="ch m-caracteres"></div><img src="img/site-sobreiro.jpg" alt=""></div></div><div class="marca">Não · a competir com a árvore</div></div>
+          <div class="exemplo nao"><div class="area"><div class="goshin-mal"><div class="circ m-circulo"></div><img src="img/goshin.png" alt=""></div></div><div class="marca">Não · vermelho na Goshin</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloco revelar">
+      <div class="nome"><h3>Ícones</h3><p>Traço fino de 1,75, cantos redondos, preto ou branco. 24 px; 16 px junto a texto.</p></div>
+      <div>
+        <div class="icones">
+          <figure><svg class="ic"><use href="#i-search"/></svg>Pesquisar</figure>
+          <figure><svg class="ic"><use href="#i-user"/></svg>Conta</figure>
+          <figure><svg class="ic"><use href="#i-bag"/></svg>Carrinho</figure>
+          <figure><svg class="ic"><use href="#i-heart"/></svg>Favoritos</figure>
+          <figure><svg class="ic"><use href="#i-truck"/></svg>Entregas</figure>
+          <figure><svg class="ic"><use href="#i-gift"/></svg>Oferta</figure>
+          <figure><svg class="ic"><use href="#i-sun"/></svg>Localização</figure>
+          <figure><svg class="ic"><use href="#i-droplet"/></svg>Rega</figure>
+          <figure><svg class="ic"><use href="#i-sprout"/></svg>Adubo</figure>
+          <figure><svg class="ic"><use href="#i-scissors"/></svg>Poda</figure>
+          <figure><svg class="ic"><use href="#i-shovel"/></svg>Transplante</figure>
+          <figure><svg class="ic"><use href="#i-book"/></svg>eBook</figure>
+        </div>
+        <div class="icones-fundos">
+          <div style="background:var(--marca-branco); border: var(--linha); color: var(--marca-preto)"><svg class="ic"><use href="#i-droplet"/></svg><svg class="ic"><use href="#i-scissors"/></svg><svg class="ic peq"><use href="#i-check"/></svg><span class="mudo" style="font-size:var(--tipo-etiqueta)">Preto sobre claro</span></div>
+          <div style="background:var(--marca-preto); color: var(--marca-branco)"><svg class="ic"><use href="#i-droplet"/></svg><svg class="ic"><use href="#i-scissors"/></svg><svg class="ic peq"><use href="#i-check"/></svg><span style="font-size:var(--tipo-etiqueta)">Branco sobre escuro ou vermelho</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloco revelar">
+      <div class="nome"><h3>Movimento</h3><p>Pouco e calmo. Nada salta, nada roda. Quem pede menos movimento no sistema vê tudo parado.</p></div>
+      <div>
+        <div class="mov">
+          <div class="caixa"><b>150 ms</b><span>Rápido</span><p>Passar o rato por cima de botões, ligações e cartões.</p></div>
+          <div class="caixa"><b>250 ms</b><span>Normal</span><p>Abrir e fechar: carrinho, acordeão, avisos.</p></div>
+          <div class="caixa"><b>400 ms</b><span>Entrada</span><p>Os blocos sobem 16 px e aparecem, uma vez, ao fazer scroll.</p></div>
+        </div>
+        <div class="demo-mov">
+          <span class="botao">Passe o rato aqui</span>
+          <span class="botao secundario">E aqui</span>
+          <div class="bola revelar-demo">400 ms</div>
+          <button class="botao secundario" type="button" id="repetir">Repetir a entrada</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 03 COMPONENTES ════════════════════════════════════ -->
+<section class="seccao" id="componentes">
+  <div class="largura">
+    <header>
+      <p class="sobre">03 · Componentes</p>
+      <h2>As peças da loja</h2>
+      <p>O que o site e a loja online repetem em todas as páginas. Desenhado a partir das peças impressas.</p>
+    </header>
+
+    <div class="bloco largo revelar">
+      <div class="nome"><h3>Cabeçalho e rodapé</h3><p>Faixa preta com os portes, logótipo à esquerda, pesquisa ao centro. O rodapé abre com a pincelada cinza.</p></div>
+      <div>
+        <div class="cab-loja">
+          <div class="faixa"><svg class="ic peq"><use href="#i-truck"/></svg>Portes grátis a partir de 50 € até 30 kg. Entregas em 48 h úteis.</div>
+          <div class="linha1">
+            <img src="img/simbolo-letras.png" alt="Luso Bonsai">
+            <div class="pesquisa"><span>Pesquisar Bonsai, vasos, ferramentas…</span><svg class="ic"><use href="#i-search"/></svg></div>
+            <div class="accoes-cab">
+              <span><svg class="ic"><use href="#i-heart"/></svg>Favoritos</span>
+              <span><svg class="ic"><use href="#i-user"/></svg>Entrar</span>
+              <span><svg class="ic"><use href="#i-bag"/></svg>Carrinho<i class="conta-n">2</i></span>
+            </div>
+          </div>
+          <nav><a class="activo" href="#componentes">Loja</a><a href="#componentes">Sobre nós</a><a href="#componentes">Serviços</a><a href="#componentes">Fichas técnicas</a><a href="#componentes">Perguntas e respostas</a><a href="#componentes">Dr Bonsai</a></nav>
+        </div>
+        <div class="rod-loja">
+          <div class="pz m-pincel-rodape" style="background:var(--marca-cinza-claro)"></div>
+          <div class="cols">
+            <div><img src="img/simbolo-letras.png" alt=""><ul><li>Bonsai desde 1996.</li></ul></div>
+            <div><h4>Loja</h4><ul><li>Bonsai</li><li>Orquídeas</li><li>Ferramentas e acessórios</li><li>Substratos</li></ul></div>
+            <div><h4>Serviços</h4><ul><li>Hotel Bonsai</li><li>Hospital Bonsai</li><li>Cliente VIP</li><li>Dr Bonsai</li></ul></div>
+            <div><h4>Contactos</h4><ul><li><svg class="ic peq"><use href="#i-pin"/></svg>Santo Isidro de Pegões</li><li><svg class="ic peq"><use href="#i-phone"/></svg>(+351) 265 900 150</li><li><svg class="ic peq"><use href="#i-mail"/></svg>info@luso-bonsai.com</li></ul></div>
+          </div>
+          <div class="legal">Luso-Bonsai, Comercialização de Plantas e Animais, Lda.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloco revelar">
+      <div class="nome"><h3>Botões</h3><p>Preto, cantos rectos. Na Goshin o botão nunca fica vermelho: passa a cinza.</p></div>
+      <div class="botoes">
+        <div><div class="area"><span class="botao">Adicionar ao carrinho</span><span class="botao secundario">Ver detalhes</span><span class="botao desligado">Sem stock</span></div><p>Linhas Luso Bonsai, Bonsai e Orchis · passe o rato: o principal fica vermelho</p></div>
+        <div class="goshin-botoes"><div class="area"><span class="botao">Adicionar ao carrinho</span><span class="botao secundario">Ficha técnica</span></div><p>Linha Goshin · passe o rato: cinza, nunca vermelho</p></div>
+      </div>
+    </div>
+
+    <div class="bloco revelar">
+      <div class="nome"><h3>Selos de produto</h3><p>Cada selo tem um só significado. Cantos rectos, letra bold.</p></div>
+      <div>
+        <div class="selos-legenda">
+          <span class="selo desc">-9%</span><span>Desconto em campanha</span>
+          <span class="selo novo">Novo</span><span>Acabou de chegar</span>
+          <span class="selo vip">VIP</span><span>Desconto extra para clientes VIP</span>
+          <span class="selos"><span class="selo hab">Interior</span><span class="selo hab">Exterior</span><span class="selo hab">Dupla localização</span></span><span>Onde a árvore vive</span>
+          <span class="selo esg">Sem stock</span><span>Esgotado neste momento</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloco revelar">
+      <div class="nome"><h3>Cartão de produto</h3><p>Planta sobre branco, nome, idade e habitat, preço a vermelho. Na Goshin o preço é preto.</p></div>
+      <div class="produtos">
+        <article class="produto">
+          <div class="foto"><div class="selos"><span class="selo desc">-9%</span><span class="selo novo">Novo</span></div><img src="img/site-sobreiro.jpg" alt="Sobreiro Bonsai de 9 anos"></div>
+          <div class="info">
+            <h4>Sobreiro Bonsai de 9 anos</h4>
+            <span class="meta">Quercus suber · <span class="selo hab">Exterior</span></span>
+            <span class="preco">45,50 € <s>50,00 €</s></span>
+            <button class="botao js-carrinho" type="button" data-nome="Sobreiro Bonsai de 9 anos"><svg class="ic peq"><use href="#i-bag"/></svg>Adicionar ao carrinho</button>
+          </div>
+        </article>
+        <article class="produto goshin">
+          <div class="foto"><div class="selos"><span class="selo novo">-10%</span></div><img src="img/site-alicate-goshin.jpg" alt="Alicate Goshin de corte lateral fino"></div>
+          <div class="info">
+            <h4>Alicate de corte lateral fino Shohin 180 mm · Inox Goshin</h4>
+            <span class="meta">Aço inox, 13% de crómio · HRC 54-56</span>
+            <span class="preco">40,95 € <s>45,50 €</s></span>
+            <button class="botao js-carrinho" type="button" data-nome="Alicate Goshin Shohin 180 mm"><svg class="ic peq"><use href="#i-bag"/></svg>Adicionar ao carrinho</button>
+          </div>
+        </article>
+        <article class="produto esgotado">
+          <div class="foto"><div class="selos"><span class="selo esg">Sem stock</span></div><img src="img/site-sobreiro.jpg" alt=""></div>
+          <div class="info">
+            <h4>Sobreiro Bonsai de 9 anos</h4>
+            <span class="meta">Quercus suber · <span class="selo hab">Exterior</span></span>
+            <span class="preco">45,50 €</span>
+            <button class="botao secundario js-esgotado" type="button"><svg class="ic peq"><use href="#i-mail"/></svg>Avisar quando chegar</button>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <div class="bloco revelar">
+      <div class="nome"><h3>Formulário</h3><p>Campos cinza claro, sem bordas. Foco a preto. Erro numa frase curta, a vermelho, com o que fazer.</p></div>
+      <div class="formas">
+        <figure><div class="fcard">
+          <div class="campo"><label>Nome</label><div class="input">Ana</div></div>
+          <div class="campo"><label>Email</label><div class="input foco">ana@exemplo.pt<i class="cursor"></i></div></div>
+        </div><p class="legenda">Normal e foco</p></figure>
+        <figure><div class="fcard">
+          <div class="campo invalido"><label>Nome</label><div class="input"></div><span class="erro"><svg class="ic peq"><use href="#i-alert"/></svg>Escreva o seu nome.</span></div>
+          <div class="campo invalido"><label>Email</label><div class="input">ana@</div><span class="erro"><svg class="ic peq"><use href="#i-alert"/></svg>Este email não parece completo.</span></div>
+        </div><p class="legenda">Erro, com o que fazer</p></figure>
+        <figure><div class="fcard">
+          <div class="visto"><svg class="ic"><use href="#i-check"/></svg></div>
+          <h4>Obrigado, Ana.</h4>
+          <p>O eBook vai a caminho do seu email.</p>
+        </div><p class="legenda">Sucesso</p></figure>
+      </div>
+    </div>
+
+    <div class="bloco revelar">
+      <div class="nome"><h3>Avisos</h3><p>Aparecem no canto e desaparecem sozinhos. Faixa preta quando correu bem, cinza quando não há stock.</p></div>
+      <div>
+        <div class="palco-avisos avisos">
+          <div class="aviso"><svg class="ic"><use href="#i-check"/></svg><div><b>Adicionado ao carrinho</b><p>Sobreiro Bonsai de 9 anos · 45,50 €</p></div><button class="x" type="button" aria-label="Fechar"><svg class="ic peq"><use href="#i-x"/></svg></button></div>
+          <div class="aviso cinza"><svg class="ic"><use href="#i-alert"/></svg><div><b>Sem stock neste momento</b><p>Avisamos por email quando voltar a chegar.</p></div><button class="x" type="button" aria-label="Fechar"><svg class="ic peq"><use href="#i-x"/></svg></button></div>
+        </div>
+        <p class="legenda">Experimente: carregue em «Adicionar ao carrinho» nos cartões de produto acima</p>
+      </div>
+    </div>
+
+    <div class="bloco revelar">
+      <div class="nome"><h3>Carrinho lateral</h3><p>Entra pela direita por cima da página. Véu escuro por trás, um só botão para avançar.</p></div>
+      <div>
+        <div class="carrinho-demo">
+          <div class="veu"></div>
+          <div class="gaveta">
+            <header><h4>Carrinho (2)</h4><svg class="ic"><use href="#i-x"/></svg></header>
+            <div class="linhas">
+              <div class="linha-c"><img src="img/site-sobreiro.jpg" alt=""><div><h5>Sobreiro Bonsai de 9 anos</h5><div class="qtd"><span><svg class="ic peq"><use href="#i-minus"/></svg></span><span>1</span><span><svg class="ic peq"><use href="#i-plus"/></svg></span></div></div><span class="p">45,50 €</span></div>
+              <div class="linha-c"><img src="img/site-alicate-goshin.jpg" alt=""><div><h5>Alicate Goshin Shohin 180 mm</h5><div class="qtd"><span><svg class="ic peq"><use href="#i-minus"/></svg></span><span>1</span><span><svg class="ic peq"><use href="#i-plus"/></svg></span></div></div><span class="p">40,95 €</span></div>
+            </div>
+            <footer>
+              <div class="portes"><svg class="ic peq"><use href="#i-truck"/></svg>Portes grátis: a encomenda passa os 50 €.</div>
+              <div class="total"><span>Total</span><span>86,45 €</span></div>
+              <span class="botao">Finalizar compra</span>
+            </footer>
+          </div>
+        </div>
+        <button class="botao secundario" type="button" id="abrir-carrinho" style="margin-top: var(--e-3)">Abrir o carrinho a sério</button>
+      </div>
+    </div>
+
+    <div class="bloco revelar">
+      <div class="nome"><h3>Acordeão de cuidados</h3><p>Para fichas de produto e páginas de ajuda. Texto do folheto que segue com cada Bonsai.</p></div>
+      <div class="acordeao">
+        <details open><summary><svg class="ic"><use href="#i-sun"/></svg>Localização<svg class="ic seta"><use href="#i-chevron"/></svg></summary><div class="corpo"><p>Ver a localização da espécie na etiqueta.</p><p>Interior: o mais próximo possível de uma janela com muita luz, sem cortinas nem persianas. Exterior: onde apanhe 2 a 3 horas de sol directo por dia (ideal de manhã ou ao fim do dia), protegido de ventos fortes.</p></div></details>
+        <details><summary><svg class="ic"><use href="#i-droplet"/></svg>Rega<svg class="ic seta"><use href="#i-chevron"/></svg></summary><div class="corpo"><p>Regar abundantemente a terra até sair água pelos furos de drenagem, a fim de humedecer uniformemente o solo. Sempre por cima (nunca por imersão), com um regador de ralos muito finos. Não deixe água no prato debaixo do Bonsai.</p><p>Deixar secar ligeiramente a camada superficial do solo entre cada rega. Não borrifar as folhas.</p></div></details>
+        <details><summary><svg class="ic"><use href="#i-sprout"/></svg>Adubo<svg class="ic seta"><use href="#i-chevron"/></svg></summary><div class="corpo"><p>Adubo (Fertil Bonsai): desde Fevereiro a Outubro/Novembro inclusive, sempre com adubo para Bonsai, seguindo as doses e o método recomendado.</p><p>Fortificante (Bio Bonsai): de Fevereiro a Outubro no exterior e todo o ano no interior, aumentando as doses no pós-transplante.</p></div></details>
+        <details><summary><svg class="ic"><use href="#i-scissors"/></svg>Poda<svg class="ic seta"><use href="#i-chevron"/></svg></summary><div class="corpo"><p>Manutenção (crescimentos novos): sempre que a planta se afaste da forma original.</p><p>Transformação (pernadas antigas): no início da Primavera ou no início do Outono.</p></div></details>
+        <details><summary><svg class="ic"><use href="#i-shovel"/></svg>Transplante<svg class="ic seta"><use href="#i-chevron"/></svg></summary><div class="corpo"><p>Cada 2 anos, com um solo adaptado à espécie e RhizaBonsai, idealmente na época seguinte à compra.</p><p>Janeiro a Março: exterior e dupla localização. Abril a Junho: espécies de interior. Sempre antes da nova rebentação.</p></div></details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 04 APLICAÇÕES ═════════════════════════════════════ -->
+<section class="seccao" id="aplicacoes">
+  <div class="largura">
+    <header>
+      <p class="sobre">04 · Aplicações</p>
+      <h2>Da etiqueta ao Instagram</h2>
+      <p>As mesmas regras em cada peça. À esquerda a peça nova, à direita a que já existe.</p>
+    </header>
+
+    <div class="bloco largo">
+      <div class="nome"><h3>Etiqueta pendurada</h3><p>Segue em cada Bonsai. Dobra ao meio, como um livro.</p></div>
+      <div class="duas">
+        <div class="palco">
+          <div class="etiqueta frente">
+            <div class="circ cima"><span>www.luso-bonsai.com</span></div>
+            <div class="cintura"></div>
+            <div class="circ baixo"><img src="img/simbolo-letras-brancas.png" alt=""></div>
+          </div>
+          <div class="etiqueta verso">
+            <div class="circ cima"><div class="display">Bonsai</div><small><b>Localização</b><b>Rega</b><b>Adubo</b></small></div>
+            <div class="cintura"></div>
+            <div class="circ baixo"><small><b>Transplante</b>Todos os nossos Bonsai são 100% climatizados ou produzidos em Portugal.</small></div>
+          </div>
+        </div>
+        <div class="real"><img src="../design-system/entrada/renders/peca-03-etiqueta-frente.png" alt="Etiqueta real"></div>
+      </div>
+    </div>
+
+    <div class="bloco largo">
+      <div class="nome"><h3>Autocolante de adubo · 200 ml</h3><p>Fundo inteiro na cor da linha. A planta num círculo, o nome por cima.</p></div>
+      <div class="duas">
+        <div class="palco">
+          <div class="rotulo">
+            <div class="col">
+              <b>PT</b><p>Bioestimulante natural líquido à base de algas.</p>
+              <b>Composição</b><p>Algas 5% · Ácidos húmicos 5% · Matéria orgânica 2%</p>
+            </div>
+            <div class="centro">
+              <div class="display">Bio Bonsai</div>
+              <div class="foto"><img src="img/acer.jpg" alt=""></div>
+              <div class="sub">Bioestimulante natural</div>
+              <div class="pe"><img src="img/simbolo-sobre-vermelho.png" alt=""><span>200 ml</span></div>
+            </div>
+            <div class="col">
+              <b>Dose</b><p>10 ml em 1 litro de água. Quinzenal.</p>
+              <b>Interior</b><p>Todo o ano.</p>
+              <b>Exterior</b><p>Da Primavera ao final do Outono.</p>
+            </div>
+          </div>
+        </div>
+        <div class="real"><img src="../design-system/entrada/renders/peca-08-autocolante-adubo-bonsai.png" alt="Autocolante real 1 litro"></div>
+      </div>
+    </div>
+
+    <div class="bloco largo">
+      <div class="nome"><h3>Banner para o site</h3><p>Fundo branco, planta recortada, um título, um botão.</p></div>
+      <div>
+        <div class="banner">
+          <div class="texto">
+            <div class="display">Mais de 100 espécies</div>
+            <p>Bonsai de interior, de exterior, mediterrâneo e de dupla localização.</p>
+            <a class="botao" href="#aplicacoes" style="text-decoration:none">Ver Bonsai</a>
+          </div>
+          <div class="foto"><img src="img/bonsai-bagas.jpg" alt=""></div>
+          <div class="rodape-pincel m-pincel-rodape"></div>
+        </div>
+        <p class="legenda">1200 × 400 · botão preto, vermelho ao passar o rato</p>
+      </div>
+    </div>
+
+
+    <div class="bloco largo revelar">
+      <div class="nome"><h3>Landing page do eBook</h3><p>A oferta real do site: o eBook grátis «Segredos para cuidar do Bonsai» e 10% na primeira compra. Um só pedido: o formulário.</p></div>
+      <div>
+        <div class="lp-mostra">
+          <div class="ecra"><img src="screenshots/lp-1440-1-inteira.png" alt="Landing page do eBook no computador"></div>
+          <div class="tel"><img src="screenshots/lp-390-1-inteira.png" alt="Landing page do eBook no telemóvel"></div>
+        </div>
+        <a class="botao ligacao-lp" href="lp-simulacao.html" target="_blank" rel="noopener">Abrir a página</a>
+      </div>
+    </div>
+
+    <div class="bloco largo revelar">
+      <div class="nome"><h3>Email do eBook</h3><p>O email que chega depois do formulário. 600 px, pincelada no topo, um só botão.</p></div>
+      <div class="email-palco">
+        <div class="email">
+          <div class="topo-e"><img src="img/simbolo-letras.png" alt="Luso Bonsai"></div>
+          <div class="pz m-pincel-topo"></div>
+          <div class="miolo">
+            <h3>O seu eBook chegou</h3>
+            <p>Olá Ana,</p>
+            <p>Obrigado pelo pedido. Aqui está o eBook «Segredos para cuidar do Bonsai», com os cinco cuidados que decidem tudo:</p>
+            <ul>
+              <li><svg class="ic peq"><use href="#i-sun"/></svg>Onde o colocar</li>
+              <li><svg class="ic peq"><use href="#i-droplet"/></svg>Como regar</li>
+              <li><svg class="ic peq"><use href="#i-sprout"/></svg>Como adubar</li>
+              <li><svg class="ic peq"><use href="#i-scissors"/></svg>Como podar</li>
+              <li><svg class="ic peq"><use href="#i-shovel"/></svg>Como transplantar</li>
+            </ul>
+            <span class="botao">Descarregar o eBook</span>
+            <p class="mudo" style="font-size:var(--tipo-etiqueta)">«Algumas pessoas dizem que falam com os Bonsai… eu prefiro ouvi-los!» Dan Barton</p>
+          </div>
+          <div class="pe-e">Luso-Bonsai, Comercialização de Plantas e Animais, Lda. · Santo Isidro de Pegões, Montijo<br>Recebe este email porque pediu o eBook em luso-bonsai.com.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloco largo">
+      <div class="nome"><h3>Post de Instagram</h3><p>1080 × 1350, aqui a um terço. Um post por linha, cada um na sua cor.</p></div>
+      <div class="posts">
+        <div>
+          <div class="post-caixa"><div class="post bonsai">
+            <div class="foto"><img src="img/bonsai-cascata.jpg" alt=""></div>
+            <div class="display">Deixe o seu Bonsai num hotel</div>
+            <p>Preços desde 0,75 € por dia.</p>
+            <div class="assina"><img src="img/simbolo-sobre-vermelho.png" alt=""></div>
+          </div></div>
+          <p class="legenda">Linha Bonsai</p>
+        </div>
+        <div>
+          <div class="post-caixa"><div class="post orquideas">
+            <div class="foto"><img src="img/orquidea-brassia.jpg" alt=""></div>
+            <div class="display">Orquídeas e plantas especiais</div>
+            <p>Na Luso Bonsai desde 2006.</p>
+            <div class="assina"><img src="img/orchis-negativo.png" alt=""></div>
+          </div></div>
+          <p class="legenda">Linha Orchis</p>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="bloco largo revelar">
+      <div class="nome"><h3>Carrossel de Instagram</h3><p>1080 × 1350, aqui a um quarto. Capa na cor da linha, um conselho por slide, fecho com a assinatura.</p></div>
+      <div class="carrossel">
+        <div><div class="slide-caixa"><div class="slide vermelho">
+          <div class="foto"><img src="img/site-sobreiro.jpg" alt=""></div>
+          <div class="display" style="margin-top:72px">Cinco cuidados que decidem tudo</div>
+          <div class="rodape-s"><span>Deslize →</span><img src="img/simbolo-sobre-vermelho.png" alt=""></div>
+        </div></div><p class="legenda">1 · Capa</p></div>
+        <div><div class="slide-caixa"><div class="slide branco">
+          <div class="chs m-caracteres"></div>
+          <div class="rel"><div class="num">02</div><svg class="ic ic-grande" style="color:var(--marca-preto); margin-top:48px"><use href="#i-droplet"/></svg><div class="display" style="margin-top:48px">Rega</div>
+          <p class="sub">Regar até sair água pelos furos de drenagem. Sempre por cima, nunca por imersão. Não borrifar as folhas.</p></div>
+          <div class="rodape-s"><span>3 / 7</span></div>
+        </div></div><p class="legenda">3 · Um cuidado por slide</p></div>
+        <div><div class="slide-caixa"><div class="slide branco">
+          <div class="chs m-caracteres"></div>
+          <div class="rel"><div class="num">04</div><svg class="ic ic-grande" style="color:var(--marca-preto); margin-top:48px"><use href="#i-scissors"/></svg><div class="display" style="margin-top:48px">Poda</div>
+          <p class="sub">Manutenção sempre que a planta se afaste da forma. Transformação no início da Primavera ou do Outono.</p></div>
+          <div class="rodape-s"><span>5 / 7</span></div>
+        </div></div><p class="legenda">5 · Outro cuidado</p></div>
+        <div><div class="slide-caixa"><div class="slide vermelho">
+          <div class="display" style="margin-top:120px">Os cinco no eBook grátis</div>
+          <p class="sub">E 10% de desconto na primeira compra online.</p>
+          <p class="sub" style="margin-top:72px">luso-bonsai.com</p>
+          <div class="rodape-s"><span>7 / 7</span><img src="img/simbolo-sobre-vermelho.png" alt=""></div>
+        </div></div><p class="legenda">7 · Fecho com chamada</p></div>
+      </div>
+    </div>
+
+    <div class="bloco largo revelar">
+      <div class="nome"><h3>Reel</h3><p>1080 × 1920, 9 segundos, sem som. O eBook grátis em quatro tempos: o sol e os caracteres, os cinco cuidados, os 10%, o logótipo.</p></div>
+      <div class="reel">
+        <video controls muted playsinline preload="metadata" poster="img/reel-poster.jpg" src="../pecas/reel/renders/reel-luso-bonsai.mp4"></video>
+        <ul class="reel-regras">
+          <li><b>Calmo e preciso.</b> Entradas e trocas de cena de 400 ms. Nada salta nem brilha.</li>
+          <li><b>O que se desenha:</b> os caracteres 盆栽 de cima para baixo e a pincelada da esquerda para a direita, em 600 a 800 ms.</li>
+          <li><b>O sol entra</b> a subir 64 px e a crescer de 92% para 100%.</li>
+          <li><b>Títulos linha a linha,</b> 150 ms entre linhas.</li>
+          <li><b>Zona segura:</b> tudo o que importa entre y 285 e 1635, porque o feed corta o vídeo a 4:5.</li>
+          <li><b>Fecho:</b> logótipo grande sobre branco, chamada e luso-bonsai.com.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="bloco largo">
+      <div class="nome"><h3>Página de catálogo</h3><p>Pincelada no topo, tabela a preto, rodapé cinza.</p></div>
+      <div class="duas">
+        <div class="palco">
+          <div class="a4">
+            <div class="pincel-topo m-pincel-topo"></div>
+            <div class="miolo">
+              <div class="display">Bonsai</div>
+              <table>
+                <thead><tr><th>Ref.</th><th>Idade</th><th>Preço</th><th>JP/KO*</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td>3 anos</td><td>4,72 €</td><td>5,66 €</td></tr>
+                  <tr><td>2</td><td>4 anos</td><td>6,13 €</td><td>7,36 €</td></tr>
+                  <tr><td>3</td><td>5 anos</td><td>7,78 €</td><td>9,34 €</td></tr>
+                  <tr><td>4</td><td>5 anos</td><td>9,43 €</td><td>11,32 €</td></tr>
+                  <tr><td>5</td><td>6 anos</td><td>11,79 €</td><td>14,15 €</td></tr>
+                  <tr><td>6</td><td>6 anos</td><td>14,15 €</td><td>16,98 €</td></tr>
+                  <tr><td>7</td><td>7 anos</td><td>16,51 €</td><td>19,81 €</td></tr>
+                  <tr><td>8</td><td>7 anos</td><td>15,33 €</td><td>18,40 €</td></tr>
+                </tbody>
+              </table>
+              <p class="nota">* Plantas do Japão, Coreia, Indonésia e outras origens.</p>
+              <img class="foto" src="img/bonsai-cascata.jpg" alt="">
+            </div>
+            <div class="pe"><div class="pincel-cinza m-pincel-rodape"></div><span>www.luso-bonsai.com</span></div>
+          </div>
+        </div>
+        <div class="real"><img src="img/catalogo-real-p4.png" alt="Página real do catálogo de revenda"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 05 REGRAS ═════════════════════════════════════════ -->
+<section class="seccao" id="regras">
+  <div class="largura">
+    <header>
+      <p class="sobre">05 · Regras</p>
+      <h2>O que nunca se faz</h2>
+      <p>Sete regras. Quem as cumpre não estraga a marca.</p>
+    </header>
+    <div class="bloco">
+      <div class="nome"><h3>1. A Goshin nunca leva vermelho</h3><p>Preto, branco e cinza. É assim que se distingue das ferramentas Basic.</p></div>
+      <div class="par-sn">
+        <div class="exemplo goshin-ok"><div class="area" style="background:var(--marca-branco)"><img src="img/goshin.png" alt=""><span class="botao">Ver ferramentas</span></div><div class="marca">Sim</div></div>
+        <div class="exemplo nao"><div class="area" style="background:var(--marca-vermelho)"><img src="img/goshin.png" alt=""></div><div class="marca">Não</div></div>
+      </div>
+    </div>
+    <div class="bloco">
+      <div class="nome"><h3>2. Orquídeas em fundo preto</h3><p>O vermelho é da linha Bonsai.</p></div>
+      <div class="par-sn">
+        <div class="exemplo"><div class="area" style="background:var(--linha-orquideas)"><img src="img/orchis-negativo.png" alt="" style="max-width:100%; max-height:120px"></div><div class="marca">Sim</div></div>
+        <div class="exemplo nao"><div class="area" style="background:var(--marca-vermelho)"><img src="img/orchis-negativo.png" alt="" style="max-width:100%; max-height:120px"></div><div class="marca">Não</div></div>
+      </div>
+    </div>
+    <div class="bloco">
+      <div class="nome"><h3>3. O símbolo não se mexe</h3><p>Nem esticado, nem com outras cores. Usa-se o ficheiro tal como está.</p></div>
+      <div class="par-sn">
+        <div class="exemplo"><div class="area"><img src="img/simbolo-letras.png" alt=""></div><div class="marca">Sim</div></div>
+        <div class="exemplo nao"><div class="area"><img class="torto" src="img/simbolo-letras.png" alt=""></div><div class="marca">Não</div></div>
+      </div>
+    </div>
+    <div class="bloco">
+      <div class="nome"><h3>4. Títulos sempre em maiúsculas</h3><p>A letra quadrada só funciona assim. E só uma vez por peça.</p></div>
+      <div class="par-sn">
+        <div class="exemplo"><div class="area"><span class="display" style="font-size:var(--tipo-titulo)">Bio Bonsai</span></div><div class="marca">Sim</div></div>
+        <div class="exemplo nao"><div class="area"><span style="font-family:var(--fonte-display); font-size:var(--tipo-titulo)">Bio Bonsai</span></div><div class="marca">Não</div></div>
+      </div>
+    </div>
+    <div class="bloco">
+      <div class="nome"><h3>5. 盆栽 escreve-se a pincel</h3><p>Os caracteres são uma imagem. Nunca se escrevem com uma letra do computador.</p></div>
+      <div class="par-sn">
+        <div class="exemplo"><div class="area"><div class="chars-vermelhos m-caracteres" style="height:140px"></div></div><div class="marca">Sim</div></div>
+        <div class="exemplo nao"><div class="area"><span class="sistema">盆栽</span></div><div class="marca">Não</div></div>
+      </div>
+    </div>
+    <div class="bloco">
+      <div class="nome"><h3>6. Cores lisas, cantos rectos</h3><p>Sem degradés, sem brilhos, sem cantos arredondados.</p></div>
+      <div class="par-sn">
+        <div class="exemplo"><div class="area"><span class="botao">Adicionar ao carrinho</span></div><div class="marca">Sim</div></div>
+        <div class="exemplo nao"><div class="area"><span class="botao redondo">Adicionar ao carrinho</span></div><div class="marca">Não</div></div>
+      </div>
+    </div>
+    <div class="bloco">
+      <div class="nome"><h3>7. Fotografia sem filtros</h3><p>Cores verdadeiras e luz natural. Nada de sépia, vinhetas ou saturação a mais.</p></div>
+      <div class="par-sn">
+        <div class="exemplo"><div class="area area-foto"><img src="img/gerada-viveiro.jpg" alt=""></div><div class="marca">Sim</div></div>
+        <div class="exemplo nao"><div class="area area-foto"><img class="filtro" src="img/gerada-viveiro.jpg" alt=""></div><div class="marca">Não</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="rodape">
+  <div class="largura">
+    <span>Luso Bonsai · Design system · Outubro 2026</span>
+    <span>Preparado por AgentXN</span>
+  </div>
+</footer>
+
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<div class="gaveta-real" id="gaveta" role="dialog" aria-modal="true" aria-label="Carrinho">
+  <div class="veu" data-fechar></div>
+  <div class="gaveta">
+    <header><h4>Carrinho (2)</h4><button class="x" type="button" data-fechar aria-label="Fechar" style="background:none; color:var(--cor-texto); padding:0"><svg class="ic"><use href="#i-x"/></svg></button></header>
+    <div class="linhas">
+      <div class="linha-c"><img src="img/site-sobreiro.jpg" alt=""><div><h5>Sobreiro Bonsai de 9 anos</h5><div class="qtd"><span><svg class="ic peq"><use href="#i-minus"/></svg></span><span>1</span><span><svg class="ic peq"><use href="#i-plus"/></svg></span></div></div><span class="p">45,50 €</span></div>
+      <div class="linha-c"><img src="img/site-alicate-goshin.jpg" alt=""><div><h5>Alicate Goshin Shohin 180 mm</h5><div class="qtd"><span><svg class="ic peq"><use href="#i-minus"/></svg></span><span>1</span><span><svg class="ic peq"><use href="#i-plus"/></svg></span></div></div><span class="p">40,95 €</span></div>
+    </div>
+    <footer>
+      <div class="portes"><svg class="ic peq"><use href="#i-truck"/></svg>Portes grátis: a encomenda passa os 50 €.</div>
+      <div class="total"><span>Total</span><span>86,45 €</span></div>
+      <span class="botao">Finalizar compra</span>
+    </footer>
+  </div>
+</div>
+
+<script>
+  // Avisos (desaparecem sozinhos)
+  const toasts = document.getElementById('toasts');
+  function aviso(titulo, texto, cinza) {
+    const el = document.createElement('div');
+    el.className = 'aviso' + (cinza ? ' cinza' : '');
+    el.innerHTML = '<svg class="ic"><use href="#i-' + (cinza ? 'alert' : 'check') + '"/></svg><div><b></b><p></p></div>';
+    el.querySelector('b').textContent = titulo; el.querySelector('p').textContent = texto;
+    toasts.appendChild(el);
+    setTimeout(() => el.remove(), 3200);
+  }
+  document.querySelectorAll('.js-carrinho').forEach(b => b.addEventListener('click', () => aviso('Adicionado ao carrinho', b.dataset.nome)));
+  document.querySelectorAll('.js-esgotado').forEach(b => b.addEventListener('click', () => aviso('Sem stock neste momento', 'Avisamos por email quando voltar a chegar.', true)));
+  // Carrinho lateral
+  const gaveta = document.getElementById('gaveta');
+  document.getElementById('abrir-carrinho').addEventListener('click', () => gaveta.classList.add('aberta'));
+  gaveta.querySelectorAll('[data-fechar]').forEach(e => e.addEventListener('click', () => gaveta.classList.remove('aberta')));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') gaveta.classList.remove('aberta'); });
+  // Aparecer ao fazer scroll (uma vez)
+  const obs = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visto'); obs.unobserve(e.target); } }), { threshold: 0.08 });
+  document.querySelectorAll('.revelar').forEach(el => obs.observe(el));
+  // Demonstração do movimento de entrada
+  const bola = document.querySelector('.revelar-demo');
+  document.getElementById('repetir').addEventListener('click', () => {
+    bola.classList.remove('revelar', 'visto'); void bola.offsetWidth;
+    bola.classList.add('revelar'); requestAnimationFrame(() => requestAnimationFrame(() => bola.classList.add('visto')));
+  });
+
+  // Os códigos de cor escritos no ecrã lêem-se do tokens.css: mudar lá muda aqui.
+  const raiz = getComputedStyle(document.documentElement);
+  document.querySelectorAll('[data-token]').forEach(el => {
+    el.textContent = raiz.getPropertyValue(el.dataset.token).trim().toUpperCase();
+  });
+</script>
+</body>
+</html>

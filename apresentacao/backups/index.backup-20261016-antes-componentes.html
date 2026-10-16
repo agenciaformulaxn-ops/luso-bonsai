@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Luso Bonsai · Design System</title>
+<!-- Todos os valores da marca vêm daqui. Mudar a marca = mudar só este ficheiro. -->
+<link rel="stylesheet" href="../design-system/tokens.css">
+<link rel="stylesheet" href="mascaras.css">
+<style>
+  /* Medidas de layout desta página (não são cores nem valores da marca) */
+  :root {
+    --pagina-lado: var(--e-6);
+    --coluna-nome: 280px;
+    --altura-topo: 88px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: var(--altura-topo); }
+  body { margin: 0; background: var(--cor-fundo); color: var(--cor-texto); }
+  img { display: block; max-width: 100%; }
+  h1, h2, h3, h4, p { margin: 0; }
+
+  .display {
+    font-family: var(--fonte-display);
+    font-weight: var(--peso-display);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    line-height: var(--entrelinha-titulo);
+    word-break: keep-all;
+  }
+  .sobre {
+    font-family: var(--fonte-texto);
+    font-size: var(--tipo-etiqueta);
+    font-weight: var(--peso-etiqueta);
+    letter-spacing: var(--tracking-etiqueta);
+    text-transform: uppercase;
+    color: var(--cor-texto-2);
+    display: flex; align-items: center; gap: var(--e-2);
+  }
+  .sobre::before { content: ""; width: var(--e-4); height: var(--e-0); background: var(--cor-realce); }
+  .mudo { color: var(--cor-texto-2); }
+
+  .largura { max-width: calc(var(--largura-conteudo) + 2 * var(--pagina-lado)); margin: 0 auto; padding: 0 var(--pagina-lado); }
+
+  /* ── Topo ─────────────────────────────────────────── */
+  .topo { position: sticky; top: 0; z-index: 10; background: var(--cor-fundo); border-bottom: var(--linha); }
+  .topo .largura { height: var(--altura-topo); display: flex; align-items: center; justify-content: space-between; }
+  .topo img { height: var(--logo-min-ecra); width: auto; }
+  .topo nav { display: flex; gap: var(--e-5); }
+  .topo nav a { text-decoration: none; font-size: var(--tipo-corpo); font-weight: var(--peso-subtitulo); color: var(--cor-texto); padding: var(--e-1) 0; border-bottom: 2px solid transparent; transition: border-color var(--dur-normal) var(--curva); }
+  .topo nav a:hover { border-color: var(--cor-realce); }
+
+  /* ── Capa ─────────────────────────────────────────── */
+  .capa { min-height: calc(100vh - var(--altura-topo)); display: flex; align-items: center; padding: var(--e-7) 0; }
+  .capa .largura { width: 100%; display: grid; grid-template-columns: 1.15fr 0.85fr; gap: var(--e-7); align-items: center; }
+  .capa h1 { font-size: var(--tipo-display); margin-top: var(--e-4); }
+  .capa h1 span { color: var(--cor-realce); }
+  .capa .lead { font-size: var(--tipo-subtitulo); line-height: var(--entrelinha-corpo); color: var(--cor-texto-2); max-width: 520px; margin-top: var(--e-4); }
+  .capa .simbolo { display: flex; justify-content: center; align-items: center; gap: var(--e-6); padding: var(--e-6); }
+  .capa .simbolo img { width: 300px; }
+  .capa .chars { flex: 0 0 auto; width: 72px; height: 96px; background: var(--marca-vermelho); align-self: flex-end; }
+  .indice { list-style: none; padding: 0; margin: var(--e-7) 0 0; display: grid; grid-template-columns: repeat(4, 1fr); border-top: var(--linha); }
+  .indice a { display: block; padding: var(--e-3) var(--e-3) var(--e-3) 0; text-decoration: none; color: var(--cor-texto); }
+  .indice b { display: block; font-family: var(--fonte-display); font-weight: var(--peso-display); color: var(--cor-realce); font-size: var(--tipo-subtitulo); margin-bottom: var(--e-1); }
+  .indice span { font-weight: var(--peso-subtitulo); }
+
+  /* ── A casa ─────────────────────────────────────── */
+  .casa { padding: 0 0 var(--e-7); }
+  .casa-foto { width: 100%; aspect-ratio: 21 / 9; object-fit: cover; }
+  .numeros { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--e-4); margin: var(--e-5) 0 0; }
+  .numeros dt { font-size: var(--tipo-etiqueta); font-weight: var(--peso-etiqueta); letter-spacing: var(--tracking-etiqueta); text-transform: uppercase; color: var(--cor-texto-2); }
+  .numeros dd { margin: var(--e-1) 0 0; font-family: var(--fonte-display); font-size: var(--tipo-titulo); letter-spacing: 0.02em; }
+  .numeros dd.sitio { font-family: var(--fonte-texto); font-size: var(--tipo-subtitulo); font-weight: var(--peso-subtitulo); line-height: 1.3; }
+  .foto-larga { grid-column: 1 / -1; width: 100%; aspect-ratio: 21 / 9; object-fit: cover; }
+  .foto-larga.cima { object-position: center 20%; }
+
+  /* ── Secções ──────────────────────────────────────── */
+  .seccao { padding: var(--e-7) 0; border-top: var(--linha); }
+  .seccao > .largura > header { margin-bottom: var(--e-6); }
+  .seccao h2 { font-size: var(--tipo-titulo); margin-top: var(--e-3); font-family: var(--fonte-display); font-weight: var(--peso-display); text-transform: uppercase; letter-spacing: 0.02em; line-height: var(--entrelinha-titulo); }
+  .seccao header p { font-size: var(--tipo-subtitulo); color: var(--cor-texto-2); margin-top: var(--e-3); max-width: 640px; line-height: var(--entrelinha-corpo); }
+
+  .bloco { display: grid; grid-template-columns: var(--coluna-nome) 1fr; gap: var(--e-6); padding: var(--e-6) 0; border-top: var(--linha); }
+  .bloco > .nome h3 { font-size: var(--tipo-subtitulo); font-weight: var(--peso-titulo); }
+  .bloco > .nome p { margin-top: var(--e-2); color: var(--cor-texto-2); max-width: 260px; }
+
+  .bloco.largo { grid-template-columns: 1fr; gap: var(--e-4); }
+  .bloco.largo > .nome { display: flex; align-items: baseline; gap: var(--e-4); }
+  .bloco.largo > .nome p { margin-top: 0; max-width: none; }
+  .painel { background: var(--marca-cinza-claro); padding: var(--e-4); }
+  .legenda { font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); margin-top: var(--e-2); letter-spacing: var(--tracking-etiqueta); text-transform: uppercase; font-weight: var(--peso-etiqueta); }
+
+  /* ── 01 Família ───────────────────────────────────── */
+  .familia { display: grid; gap: var(--e-3); grid-template-columns: 1fr 1fr; }
+  .tile { aspect-ratio: 4 / 3; display: flex; align-items: center; justify-content: center; padding: var(--e-5); border: var(--linha); }
+  .tile img { max-height: 100%; width: auto; object-fit: contain; }
+  .tile.branco { background: var(--marca-branco); }
+  .tile.cinza { background: var(--marca-cinza-claro); border-color: var(--marca-cinza-claro); }
+  .tile.vermelho { background: var(--linha-bonsai); border-color: var(--linha-bonsai); }
+  .tile.preto { background: var(--linha-orquideas); border-color: var(--linha-orquideas); }
+  .ficha { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-5); padding-top: var(--e-2); }
+  .ficha dt { font-size: var(--tipo-etiqueta); font-weight: var(--peso-etiqueta); letter-spacing: var(--tracking-etiqueta); text-transform: uppercase; color: var(--cor-texto-2); margin-bottom: var(--e-1); }
+  .ficha dd { margin: 0; }
+  .cores-manda { display: flex; gap: var(--e-1); align-items: center; }
+  .cores-manda i { width: var(--e-3); height: var(--e-3); border: var(--linha); display: inline-block; }
+
+  /* ── 02 Fundações ─────────────────────────────────── */
+  .cores { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--e-3); }
+  .cor { border: var(--linha); }
+  .cor .amostra { height: 112px; }
+  .cor .info { padding: var(--e-2); }
+  .cor h4 { font-size: var(--tipo-corpo); font-weight: var(--peso-titulo); }
+  .cor .hex { font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); margin-top: var(--e-1); }
+  .cor .tinta { font-size: var(--tipo-etiqueta); margin-top: var(--e-1); }
+  .cor p { font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); margin-top: var(--e-2); line-height: var(--entrelinha-corpo); }
+
+  .letras { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-3); }
+  .letra { background: var(--marca-cinza-claro); padding: var(--e-5); display: flex; flex-direction: column; gap: var(--e-3); }
+  .letra .par { display: flex; gap: var(--e-2); align-items: baseline; font-size: var(--tipo-etiqueta); }
+  .letra .par b { font-weight: var(--peso-titulo); }
+  .letra .amostra-d { font-family: var(--fonte-display); text-transform: uppercase; letter-spacing: 0.02em; font-size: var(--tipo-titulo); line-height: var(--entrelinha-titulo); }
+  .letra .amostra-t { font-size: var(--tipo-subtitulo); line-height: var(--entrelinha-corpo); }
+  .letra .regua { border-top: 1px solid var(--marca-cinza-medio); padding-top: var(--e-2); font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); }
+
+  .logos { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-3); }
+  .logos .tile { aspect-ratio: 1 / 1; }
+  .logos .tile img { max-height: 72%; }
+  .espaco { position: relative; outline: 1px dashed var(--marca-cinza-medio); outline-offset: var(--e-4); }
+  .minimo { display: flex; flex-direction: column; justify-content: center; gap: var(--e-4); padding: var(--e-6) var(--e-5); }
+  .minimo p { line-height: var(--entrelinha-corpo); }
+  .minimo img { height: var(--logo-min-ecra); width: auto; align-self: flex-start; }
+
+  .elementos { display: grid; grid-template-columns: 2fr 2fr 1fr; gap: var(--e-3); }
+  .elementos .tile { aspect-ratio: auto; height: 200px; padding: var(--e-3); }
+  .pincel-vermelho { width: 100%; aspect-ratio: 849 / 293; background: var(--marca-vermelho); }
+  .pincel-cinza { width: 100%; aspect-ratio: 1000 / 229; background: var(--marca-cinza-claro); }
+  .chars-vermelhos { height: 100%; aspect-ratio: 500 / 670; background: var(--marca-vermelho); }
+
+  .fotos { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--e-3); }
+  .foto-tile { aspect-ratio: 4 / 5; padding: var(--e-3); }
+  .foto-tile-img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+
+  /* ── 03 Aplicações ────────────────────────────────── */
+  .duas { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-3); align-items: start; }
+  .palco { background: var(--marca-cinza-claro); padding: var(--e-6) var(--e-4); display: flex; justify-content: center; align-items: center; gap: var(--e-4); min-height: 100%; }
+
+  /* Etiqueta pendurada */
+  .etiqueta { width: 150px; display: flex; flex-direction: column; align-items: center; }
+  .etiqueta .circ { width: 150px; height: 150px; border-radius: var(--raio-circulo); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: var(--e-2); }
+  .etiqueta .cintura { width: 56px; height: 24px; margin: -8px 0; position: relative; z-index: 1; }
+  .etiqueta.frente .circ, .etiqueta.frente .cintura { background: var(--linha-etiqueta); }
+  .etiqueta.frente .circ.cima span { transform: rotate(180deg); color: var(--marca-branco); font-size: 11px; letter-spacing: 0.04em; }
+  .etiqueta.frente .circ.baixo img { width: 92px; }
+  .etiqueta.verso .circ, .etiqueta.verso .cintura { background: var(--marca-branco); border: 1px solid var(--marca-cinza-medio); }
+  .etiqueta.verso .cintura { border-top: 0; border-bottom: 0; }
+  .etiqueta.verso .display { font-size: var(--tipo-subtitulo); }
+  .etiqueta.verso small { font-size: 11px; line-height: 1.4; display: block; }
+  .etiqueta.verso small b { display: block; }
+  .furo { width: var(--e-2); height: var(--e-2); border-radius: var(--raio-circulo); background: var(--marca-cinza-claro); border: 1px solid var(--marca-cinza-medio); margin: var(--e-1) auto; }
+
+  .real { border: var(--linha); background: var(--marca-branco); padding: var(--e-3); display: flex; align-items: center; justify-content: center; }
+  .real img { max-height: 360px; width: auto; }
+
+  /* Autocolante adubo 200 ml (178 × 123 mm) */
+  .rotulo { width: 100%; max-width: 600px; aspect-ratio: 178 / 123; background: var(--linha-bonsai); color: var(--marca-branco); display: grid; grid-template-columns: 1fr 1.2fr 1fr; gap: var(--e-3); padding: var(--e-4) var(--e-3); }
+  .rotulo .col { font-size: 11px; line-height: 1.45; }
+  .rotulo .col b { display: block; font-weight: var(--peso-titulo); margin-bottom: var(--e-0); }
+  .rotulo .col p + b { margin-top: var(--e-1); }
+  .rotulo .centro { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--e-1); }
+  .rotulo .centro .display { font-size: var(--tipo-subtitulo); }
+  .rotulo .foto { width: 112px; height: 112px; border-radius: var(--raio-circulo); overflow: hidden; border: 3px solid var(--marca-branco); }
+  .rotulo .foto img { width: 100%; height: 100%; object-fit: cover; }
+  .rotulo .sub { font-family: var(--fonte-display); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .rotulo .pe { display: flex; align-items: center; justify-content: center; gap: var(--e-2); margin-top: auto; }
+  .rotulo .pe img { width: 34px; }
+  .rotulo .pe span { font-family: var(--fonte-texto); font-weight: var(--peso-titulo); font-size: var(--tipo-etiqueta); }
+
+  /* Banner do site (1200 × 400) */
+  .banner { aspect-ratio: 3 / 1; max-width: 1200px; width: 100%; background: var(--marca-branco); border: var(--linha); display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 100%; position: relative; overflow: hidden; }
+  .banner .texto { padding: var(--e-5) var(--e-7) var(--e-6); display: flex; flex-direction: column; justify-content: center; gap: var(--e-2); position: relative; z-index: 1; }
+  .banner .display { font-size: var(--tipo-titulo); color: var(--cor-realce); }
+  .banner p { color: var(--cor-texto-2); max-width: 340px; }
+  .banner .botao { align-self: flex-start; margin-top: var(--e-1); }
+  .banner .foto { display: flex; align-items: center; justify-content: center; padding: var(--e-4) var(--e-4) var(--e-6); min-height: 0; }
+  .banner .foto img { max-height: 100%; height: auto; width: auto; mix-blend-mode: multiply; }
+  .banner .rodape-pincel { position: absolute; left: 0; right: 0; bottom: 0; height: 48px; background: var(--marca-cinza-claro); }
+
+  /* Posts 1080 × 1350, mostrados a 1/3 */
+  .posts { display: flex; gap: var(--e-4); justify-content: center; }
+  .post-caixa { width: 360px; height: 450px; overflow: hidden; }
+  .post { width: 1080px; height: 1350px; transform: scale(0.3333); transform-origin: 0 0; padding: 96px; display: flex; flex-direction: column; color: var(--marca-branco); }
+  .post.bonsai { background: var(--linha-bonsai); }
+  .post.orquideas { background: var(--linha-orquideas); }
+  .post .foto { width: 560px; height: 560px; border-radius: var(--raio-circulo); background: var(--marca-branco); overflow: hidden; align-self: center; display: flex; align-items: center; justify-content: center; }
+  .post .foto img { width: 86%; height: 86%; object-fit: contain; }
+  .post .display { font-size: 96px; margin-top: 72px; line-height: 1.08; }
+  .post p { font-size: 40px; margin-top: 32px; line-height: 1.35; }
+  .post .assina { margin-top: auto; display: flex; justify-content: flex-end; }
+  .post .assina img { height: 120px; width: auto; }
+
+  /* Página de catálogo A4 */
+  .a4 { width: 100%; max-width: 420px; aspect-ratio: 210 / 297; background: var(--marca-branco); border: var(--linha); position: relative; overflow: hidden; display: flex; flex-direction: column; }
+  .a4 .pincel-topo { width: 100%; aspect-ratio: 849 / 160; background: var(--linha-bonsai); -webkit-mask-size: 100% 183%; mask-size: 100% 183%; -webkit-mask-position: bottom; mask-position: bottom; }
+  .a4 .miolo { padding: var(--e-3) var(--e-5); flex: 1; display: flex; flex-direction: column; gap: var(--e-2); }
+  .a4 .display { font-size: var(--tipo-subtitulo); }
+  .a4 table { border-collapse: collapse; width: 100%; font-size: 11px; font-variant-numeric: tabular-nums; }
+  .a4 th { text-align: left; font-weight: var(--peso-titulo); border-bottom: 1px solid var(--marca-preto); padding: var(--e-0) 0; font-size: 10px; letter-spacing: 0.04em; }
+  .a4 td { padding: 3px 0; border-bottom: 1px solid var(--marca-cinza-claro); }
+  .a4 th:nth-child(n+3), .a4 td:nth-child(n+3) { text-align: right; }
+  .a4 .nota { font-size: 9px; color: var(--cor-texto-2); }
+  .a4 .foto { align-self: flex-end; width: 46%; margin-top: auto; }
+  .a4 .pe { position: relative; height: 56px; display: flex; align-items: flex-end; justify-content: center; padding-bottom: var(--e-1); }
+  .a4 .pe .pincel-cinza { position: absolute; inset: 0; width: auto; aspect-ratio: auto; }
+  .a4 .pe span { position: relative; font-size: 10px; color: var(--cor-texto-2); }
+
+  /* ── 04 Regras ────────────────────────────────────── */
+  .regras { display: grid; gap: var(--e-6); }
+  .regra h3 { font-size: var(--tipo-subtitulo); font-weight: var(--peso-titulo); }
+  .regra > p { color: var(--cor-texto-2); margin-top: var(--e-1); }
+  .par-sn { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-3); }
+  .exemplo { border: var(--linha); }
+  .exemplo .area { height: 220px; display: flex; align-items: center; justify-content: center; padding: var(--e-4); gap: var(--e-3); }
+  .exemplo .marca { padding: var(--e-2) var(--e-3); border-top: var(--linha); font-weight: var(--peso-titulo); display: flex; align-items: center; gap: var(--e-2); }
+  .exemplo .marca::before { content: ""; width: var(--e-3); height: var(--e-0); background: var(--marca-preto); }
+  .exemplo.nao .marca::before { background: var(--marca-cinza-medio); }
+  .exemplo.nao .marca { color: var(--cor-texto-2); }
+  .exemplo .area img { max-height: 100%; width: auto; }
+  .torto { transform: scaleX(1.45); filter: hue-rotate(140deg); }
+  .goshin-ok .botao:hover { background: var(--linha-goshin-alt); color: var(--linha-goshin); }
+  .redondo { border-radius: 9999px !important; background: linear-gradient(90deg, var(--marca-vermelho), var(--marca-preto)) !important; }
+  .area-foto { padding: 0 !important; }
+  .exemplo .area.area-foto img { width: 100%; height: 100%; max-height: none; object-fit: cover; }
+  .filtro { filter: sepia(0.7) saturate(1.8) contrast(1.2); }
+  .sistema { font-family: serif; font-size: 72px; color: var(--marca-vermelho); }
+
+  /* ── Rodapé ───────────────────────────────────────── */
+  .rodape { border-top: var(--linha); padding: var(--e-5) 0 var(--e-4); }
+  .rodape .largura { display: flex; justify-content: space-between; font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); }
+
+  @media (max-width: 900px) {
+    :root { --pagina-lado: var(--e-2); }
+    .topo nav { display: none; }
+    .capa .largura, .bloco, .familia, .ficha, .letras, .duas, .par-sn { grid-template-columns: 1fr; }
+    .cores, .logos, .numeros { grid-template-columns: 1fr 1fr; }
+    .fotos { grid-template-columns: 1fr; }
+    .elementos { grid-template-columns: 1fr; }
+    .indice { grid-template-columns: 1fr 1fr; }
+    .posts { flex-direction: column; align-items: center; }
+    .bloco > * { min-width: 0; }
+    .bloco.largo > .nome { flex-direction: column; gap: var(--e-1); }
+    .palco { flex-wrap: wrap; padding: var(--e-4) var(--e-2); }
+    .post-caixa { width: 324px; height: 405px; }
+    .post { transform: scale(0.3); }
+    .rotulo { grid-template-columns: 1fr; aspect-ratio: auto; }
+    .banner { aspect-ratio: auto; grid-template-columns: 1fr; }
+    .banner .foto img { max-height: 240px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="largura">
+    <a href="#capa" aria-label="Início"><img src="img/simbolo-letras.png" alt="Luso Bonsai"></a>
+    <nav>
+      <a href="#familia">A família</a>
+      <a href="#fundacoes">Fundações</a>
+      <a href="#aplicacoes">Aplicações</a>
+      <a href="#regras">Regras</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ CAPA ══════════════════════════════════════════════ -->
+<section class="capa" id="capa">
+  <div class="largura">
+    <div>
+      <p class="sobre">Design system · Outubro 2026</p>
+      <h1 class="display">A arte do Bonsai,<br><span>desde 1996.</span></h1>
+      <p class="lead">Cores, letras, logótipos e regras num só sítio. Para que cada etiqueta, rótulo, lona e página fale como a Luso Bonsai.</p>
+      <ol class="indice">
+        <li><a href="#familia"><b>01</b><span>A família</span></a></li>
+        <li><a href="#fundacoes"><b>02</b><span>Fundações</span></a></li>
+        <li><a href="#aplicacoes"><b>03</b><span>Aplicações</span></a></li>
+        <li><a href="#regras"><b>04</b><span>Regras</span></a></li>
+      </ol>
+    </div>
+    <div class="simbolo">
+      <img src="img/simbolo.png" alt="Símbolo Luso Bonsai: a árvore sobre o círculo rasurado">
+      <div class="chars m-caracteres" role="img" aria-label="盆栽, árvore em vaso"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ A CASA (faixa de imagem) ══════════════════════════ -->
+<section class="casa">
+  <div class="largura">
+    <img class="casa-foto" src="img/gerada-viveiro.jpg" alt="Viveiro de Bonsai com luz lateral da manhã">
+    <dl class="numeros">
+      <div><dt>Desde</dt><dd>1996</dd></div>
+      <div><dt>Bonsai em stock</dt><dd>50.000</dd></div>
+      <div><dt>Instalações</dt><dd>40.000 m²</dd></div>
+      <div><dt>Onde</dt><dd class="sitio">Santo Isidro de Pegões, Montijo</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ══ 01 A FAMÍLIA ══════════════════════════════════════ -->
+<section class="seccao" id="familia">
+  <div class="largura">
+    <header>
+      <p class="sobre">01 · A família</p>
+      <h2>Uma marca, cinco nomes</h2>
+      <p>O símbolo é a base de tudo. Cada linha tem uma cor que manda, e só uma.</p>
+    </header>
+
+    <div class="bloco">
+      <div class="nome"><h3>Luso Bonsai</h3><p>A marca-mãe. Assina a empresa e tudo o que não pertence a uma linha.</p></div>
+      <div class="familia">
+        <div class="tile branco"><img src="img/simbolo-letras.png" alt="Logótipo Luso Bonsai"></div>
+        <div class="tile cinza"><img src="../design-system/entrada/renders/peca-06-cartao-verso.png" alt="Verso do cartão de visita real"></div>
+        <dl class="ficha">
+          <div><dt>Cor que manda</dt><dd class="cores-manda"><i style="background:var(--marca-vermelho)"></i><i style="background:var(--marca-preto)"></i>Vermelho e preto, sobre branco</dd></div>
+          <div><dt>Quando se usa</dt><dd>Cartões, catálogos, lonas de feira, site, documentos.</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="nome"><h3>Bonsai</h3><p>A linha de produtos para quem cuida de Bonsai.</p></div>
+      <div class="familia">
+        <div class="tile vermelho"><img src="img/simbolo-sobre-vermelho.png" alt="Símbolo sobre vermelho"></div>
+        <div class="tile cinza"><img src="../design-system/entrada/renders/peca-08-autocolante-adubo-bonsai.png" alt="Autocolante real Bio Bonsai"></div>
+        <dl class="ficha">
+          <div><dt>Cor que manda</dt><dd class="cores-manda"><i style="background:var(--linha-bonsai)"></i>Fundo vermelho</dd></div>
+          <div><dt>Quando se usa</dt><dd>Adubos, substratos, folhetos de cuidados, etiquetas das árvores.</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="nome"><h3>Orchis by Luso Bonsai</h3><p>A linha de orquídeas e plantas especiais.</p></div>
+      <div class="familia">
+        <div class="tile preto"><img src="img/orchis-negativo.png" alt="Logótipo Orchis by Luso Bonsai"></div>
+        <div class="tile cinza"><img src="../design-system/entrada/renders/peca-17-autocolante-adubo-orquideas.png" alt="Autocolante real Nutri Orquídeas"></div>
+        <img class="foto-larga" src="img/gerada-orquidea.jpg" alt="Orquídea branca sobre fundo escuro">
+        <dl class="ficha">
+          <div><dt>Cor que manda</dt><dd class="cores-manda"><i style="background:var(--linha-orquideas)"></i>Fundo preto</dd></div>
+          <div><dt>Quando se usa</dt><dd>Adubos e substratos de orquídeas, catálogo de orquídeas, lona de orquídeas.</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="nome"><h3>Goshin</h3><p>Premium Bonsai Tools. A marca própria de ferramentas.</p></div>
+      <div class="familia">
+        <div class="tile branco"><img src="img/goshin.png" alt="Logótipo Goshin Premium Bonsai Tools"></div>
+        <div class="tile branco" style="padding: var(--e-2)"><img src="img/site-alicate-goshin.jpg" alt="Alicate Goshin no blister, foto real do site"></div>
+        <img class="foto-larga cima" src="img/gerada-goshin-maos.jpg" alt="Mãos a podar um Bonsai com uma tesoura preta">
+        <dl class="ficha">
+          <div><dt>Cor que manda</dt><dd class="cores-manda"><i style="background:var(--linha-goshin)"></i><i style="background:var(--marca-branco)"></i><i style="background:var(--linha-goshin-alt)"></i>Preto e branco. Nunca vermelho.</dd></div>
+          <div><dt>Quando se usa</dt><dd>Blisters, autocolantes e material de feira das ferramentas premium. Aço inox com 13% de crómio, dureza HRC 54-56.</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="nome"><h3>Basic</h3><p>Bonsai Tools. A gama de ferramentas de entrada.</p></div>
+      <div class="familia">
+        <div class="tile vermelho"><div class="chars-vermelhos m-caracteres" style="background:var(--marca-branco); height:80%"></div></div>
+        <div class="tile cinza"><img src="../design-system/entrada/renders/peca-09-blister-basic.png" alt="Blister real Bonsai Tools"></div>
+        <dl class="ficha">
+          <div><dt>Cor que manda</dt><dd class="cores-manda"><i style="background:var(--linha-bonsai)"></i>Vermelho, como a linha Bonsai</dd></div>
+          <div><dt>Quando se usa</dt><dd>Blisters das ferramentas de entrada. Os caracteres 盆栽 fazem de logótipo.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 02 FUNDAÇÕES ══════════════════════════════════════ -->
+<section class="seccao" id="fundacoes">
+  <div class="largura">
+    <header>
+      <p class="sobre">02 · Fundações</p>
+      <h2>As peças que se repetem</h2>
+      <p>Quatro cores, duas letras, um símbolo. Cada uma com o valor para o ecrã e para a gráfica.</p>
+    </header>
+
+    <div class="bloco">
+      <div class="nome"><h3>Cores</h3><p>Vermelho, preto, cinza e branco. Nada mais.</p></div>
+      <div class="cores">
+        <div class="cor"><div class="amostra" style="background:var(--marca-vermelho)"></div><div class="info"><h4>Vermelho</h4><div class="hex" data-token="--marca-vermelho"></div><div class="tinta">C0 M100 Y100 K0 · Pantone 485</div><p>Linha Bonsai, símbolo, preços. Texto branco só grande e grosso.</p></div></div>
+        <div class="cor"><div class="amostra" style="background:var(--marca-preto)"></div><div class="info"><h4>Preto</h4><div class="hex" data-token="--marca-preto"></div><div class="tinta">K100 · fundos C100 M100 Y100 K100</div><p>Texto, linhas Orchis e Goshin, botões.</p></div></div>
+        <div class="cor"><div class="amostra" style="background:var(--marca-branco); border-bottom: var(--linha)"></div><div class="info"><h4>Branco</h4><div class="hex" data-token="--marca-branco"></div><div class="tinta">Papel</div><p>O fundo de quase tudo.</p></div></div>
+        <div class="cor"><div class="amostra" style="background:var(--marca-cinza-escuro)"></div><div class="info"><h4>Cinza escuro</h4><div class="hex" data-token="--marca-cinza-escuro"></div><div class="tinta">Frente da etiqueta</div><p>Etiqueta pendurada, texto secundário.</p></div></div>
+        <div class="cor"><div class="amostra" style="background:var(--marca-cinza-medio)"></div><div class="info"><h4>Cinza 50</h4><div class="hex" data-token="--marca-cinza-medio"></div><div class="tinta">K50</div><p>Contornos e pormenores.</p></div></div>
+        <div class="cor"><div class="amostra" style="background:var(--marca-cinza-goshin)"></div><div class="info"><h4>Cinza 40</h4><div class="hex" data-token="--marca-cinza-goshin"></div><div class="tinta">K40</div><p>Fundo alternativo da linha Goshin.</p></div></div>
+        <div class="cor"><div class="amostra" style="background:var(--marca-cinza-claro)"></div><div class="info"><h4>Cinza 10</h4><div class="hex" data-token="--marca-cinza-claro"></div><div class="tinta">K10</div><p>Pincelada de rodapé, filetes, painéis.</p></div></div>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="nome"><h3>Letras</h3><p>Uma letra quadrada para o nome. Uma letra limpa para tudo o que se lê.</p></div>
+      <div class="letras">
+        <div class="letra">
+          <div class="par"><b>Títulos</b><span class="mudo">Gráfica: Calamitech · Ecrã: Russo One</span></div>
+          <div class="amostra-d">Bio Bonsai</div>
+          <div class="regua">Sempre em maiúsculas. Uma vez por peça: o nome do produto ou o título principal.</div>
+        </div>
+        <div class="letra">
+          <div class="par"><b>Texto</b><span class="mudo">Gráfica: Clan OT · Ecrã: Fira Sans</span></div>
+          <div class="amostra-t">Bioestimulante natural líquido à base de algas.</div>
+          <div class="regua">Tudo o que se lê: instruções, composição, catálogo, site.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="nome"><h3>Logótipo</h3><p>Usa-se sempre o ficheiro. Nunca se redesenha.</p></div>
+      <div>
+        <div class="logos">
+          <div><div class="tile branco"><img src="img/simbolo-letras.png" alt=""></div><p class="legenda">Com letras · sobre branco</p></div>
+          <div><div class="tile vermelho"><img src="img/simbolo-sobre-vermelho.png" alt=""></div><p class="legenda">Sobre vermelho · sol a branco</p></div>
+          <div><div class="tile" style="background:var(--linha-etiqueta); border-color:var(--linha-etiqueta)"><img src="img/simbolo-letras-brancas.png" alt=""></div><p class="legenda">Sobre cinza · letras a branco</p></div>
+        </div>
+        <div class="duas" style="margin-top: var(--e-5); align-items: stretch">
+          <div class="painel" style="display:flex; justify-content:center; padding: var(--e-7) var(--e-5)">
+            <img class="espaco" src="img/simbolo-letras.png" alt="" style="width:120px">
+          </div>
+          <div class="painel minimo">
+            <img src="img/simbolo-letras.png" alt="">
+            <p>Espaço livre à volta: pelo menos a altura do vaso.<br>Tamanho mínimo: <b>15 mm</b> impresso, <b>48 px</b> no ecrã.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="nome"><h3>Fotografia</h3><p>A planta é a protagonista. Luz natural, cores verdadeiras, sem filtros.</p></div>
+      <div class="fotos">
+        <div><div class="tile branco foto-tile"><img src="img/site-sobreiro.jpg" alt="Sobreiro Bonsai recortado sobre branco"></div><p class="legenda">Produto · recortado sobre branco</p></div>
+        <div><img class="foto-tile-img" src="img/gerada-viveiro.jpg" alt=""><p class="legenda">Ambiente · luz lateral da manhã</p></div>
+        <div><img class="foto-tile-img" src="img/gerada-goshin-maos.jpg" alt=""><p class="legenda">Mãos a trabalhar · Goshin</p></div>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="nome"><h3>Pincel</h3><p>A pincelada e os caracteres ligam as peças todas.</p></div>
+      <div>
+        <div class="elementos">
+          <div><div class="tile branco"><div class="pincel-vermelho m-pincel-topo"></div></div><p class="legenda">Pincelada de topo</p></div>
+          <div><div class="tile branco"><div class="pincel-cinza m-pincel-rodape"></div></div><p class="legenda">Pincelada de rodapé</p></div>
+          <div><div class="tile branco"><div class="chars-vermelhos m-caracteres"></div></div><p class="legenda">盆栽 · árvore em vaso</p></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 03 APLICAÇÕES ═════════════════════════════════════ -->
+<section class="seccao" id="aplicacoes">
+  <div class="largura">
+    <header>
+      <p class="sobre">03 · Aplicações</p>
+      <h2>Da etiqueta ao Instagram</h2>
+      <p>As mesmas regras em cada peça. À esquerda a peça nova, à direita a que já existe.</p>
+    </header>
+
+    <div class="bloco largo">
+      <div class="nome"><h3>Etiqueta pendurada</h3><p>Segue em cada Bonsai. Dobra ao meio, como um livro.</p></div>
+      <div class="duas">
+        <div class="palco">
+          <div class="etiqueta frente">
+            <div class="circ cima"><span>www.luso-bonsai.com</span></div>
+            <div class="cintura"></div>
+            <div class="circ baixo"><img src="img/simbolo-letras-brancas.png" alt=""></div>
+          </div>
+          <div class="etiqueta verso">
+            <div class="circ cima"><div class="display">Bonsai</div><small><b>Localização</b><b>Rega</b><b>Adubo</b></small></div>
+            <div class="cintura"></div>
+            <div class="circ baixo"><small><b>Transplante</b>Todos os nossos Bonsai são 100% climatizados ou produzidos em Portugal.</small></div>
+          </div>
+        </div>
+        <div class="real"><img src="../design-system/entrada/renders/peca-03-etiqueta-frente.png" alt="Etiqueta real"></div>
+      </div>
+    </div>
+
+    <div class="bloco largo">
+      <div class="nome"><h3>Autocolante de adubo · 200 ml</h3><p>Fundo inteiro na cor da linha. A planta num círculo, o nome por cima.</p></div>
+      <div class="duas">
+        <div class="palco">
+          <div class="rotulo">
+            <div class="col">
+              <b>PT</b><p>Bioestimulante natural líquido à base de algas.</p>
+              <b>Composição</b><p>Algas 5% · Ácidos húmicos 5% · Matéria orgânica 2%</p>
+            </div>
+            <div class="centro">
+              <div class="display">Bio Bonsai</div>
+              <div class="foto"><img src="img/acer.jpg" alt=""></div>
+              <div class="sub">Bioestimulante natural</div>
+              <div class="pe"><img src="img/simbolo-sobre-vermelho.png" alt=""><span>200 ml</span></div>
+            </div>
+            <div class="col">
+              <b>Dose</b><p>10 ml em 1 litro de água. Quinzenal.</p>
+              <b>Interior</b><p>Todo o ano.</p>
+              <b>Exterior</b><p>Da Primavera ao final do Outono.</p>
+            </div>
+          </div>
+        </div>
+        <div class="real"><img src="../design-system/entrada/renders/peca-08-autocolante-adubo-bonsai.png" alt="Autocolante real 1 litro"></div>
+      </div>
+    </div>
+
+    <div class="bloco largo">
+      <div class="nome"><h3>Banner para o site</h3><p>Fundo branco, planta recortada, um título, um botão.</p></div>
+      <div>
+        <div class="banner">
+          <div class="texto">
+            <div class="display">Mais de 100 espécies</div>
+            <p>Bonsai de interior, de exterior, mediterrâneo e de dupla localização.</p>
+            <a class="botao" href="#aplicacoes" style="text-decoration:none">Ver Bonsai</a>
+          </div>
+          <div class="foto"><img src="img/bonsai-bagas.jpg" alt=""></div>
+          <div class="rodape-pincel m-pincel-rodape"></div>
+        </div>
+        <p class="legenda">1200 × 400 · botão preto, vermelho ao passar o rato</p>
+      </div>
+    </div>
+
+    <div class="bloco largo">
+      <div class="nome"><h3>Post de Instagram</h3><p>1080 × 1350, aqui a um terço. Um post por linha, cada um na sua cor.</p></div>
+      <div class="posts">
+        <div>
+          <div class="post-caixa"><div class="post bonsai">
+            <div class="foto"><img src="img/bonsai-cascata.jpg" alt=""></div>
+            <div class="display">Deixe o seu Bonsai num hotel</div>
+            <p>Preços desde 0,75 € por dia.</p>
+            <div class="assina"><img src="img/simbolo-sobre-vermelho.png" alt=""></div>
+          </div></div>
+          <p class="legenda">Linha Bonsai</p>
+        </div>
+        <div>
+          <div class="post-caixa"><div class="post orquideas">
+            <div class="foto"><img src="img/orquidea-brassia.jpg" alt=""></div>
+            <div class="display">Orquídeas e plantas especiais</div>
+            <p>Na Luso Bonsai desde 2006.</p>
+            <div class="assina"><img src="img/orchis-negativo.png" alt=""></div>
+          </div></div>
+          <p class="legenda">Linha Orchis</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloco largo">
+      <div class="nome"><h3>Página de catálogo</h3><p>Pincelada no topo, tabela a preto, rodapé cinza.</p></div>
+      <div class="duas">
+        <div class="palco">
+          <div class="a4">
+            <div class="pincel-topo m-pincel-topo"></div>
+            <div class="miolo">
+              <div class="display">Bonsai</div>
+              <table>
+                <thead><tr><th>Ref.</th><th>Idade</th><th>Preço</th><th>JP/KO*</th></tr></thead>
+                <tbody>
+                  <tr><td>1</td><td>3 anos</td><td>4,72 €</td><td>5,66 €</td></tr>
+                  <tr><td>2</td><td>4 anos</td><td>6,13 €</td><td>7,36 €</td></tr>
+                  <tr><td>3</td><td>5 anos</td><td>7,78 €</td><td>9,34 €</td></tr>
+                  <tr><td>4</td><td>5 anos</td><td>9,43 €</td><td>11,32 €</td></tr>
+                  <tr><td>5</td><td>6 anos</td><td>11,79 €</td><td>14,15 €</td></tr>
+                  <tr><td>6</td><td>6 anos</td><td>14,15 €</td><td>16,98 €</td></tr>
+                  <tr><td>7</td><td>7 anos</td><td>16,51 €</td><td>19,81 €</td></tr>
+                  <tr><td>8</td><td>7 anos</td><td>15,33 €</td><td>18,40 €</td></tr>
+                </tbody>
+              </table>
+              <p class="nota">* Plantas do Japão, Coreia, Indonésia e outras origens.</p>
+              <img class="foto" src="img/bonsai-cascata.jpg" alt="">
+            </div>
+            <div class="pe"><div class="pincel-cinza m-pincel-rodape"></div><span>www.luso-bonsai.com</span></div>
+          </div>
+        </div>
+        <div class="real"><img src="img/catalogo-real-p4.png" alt="Página real do catálogo de revenda"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 04 REGRAS ═════════════════════════════════════════ -->
+<section class="seccao" id="regras">
+  <div class="largura">
+    <header>
+      <p class="sobre">04 · Regras</p>
+      <h2>O que nunca se faz</h2>
+      <p>Sete regras. Quem as cumpre não estraga a marca.</p>
+    </header>
+    <div class="bloco">
+      <div class="nome"><h3>1. A Goshin nunca leva vermelho</h3><p>Preto, branco e cinza. É assim que se distingue das ferramentas Basic.</p></div>
+      <div class="par-sn">
+        <div class="exemplo goshin-ok"><div class="area" style="background:var(--marca-branco)"><img src="img/goshin.png" alt=""><span class="botao">Ver ferramentas</span></div><div class="marca">Sim</div></div>
+        <div class="exemplo nao"><div class="area" style="background:var(--marca-vermelho)"><img src="img/goshin.png" alt=""></div><div class="marca">Não</div></div>
+      </div>
+    </div>
+    <div class="bloco">
+      <div class="nome"><h3>2. Orquídeas em fundo preto</h3><p>O vermelho é da linha Bonsai.</p></div>
+      <div class="par-sn">
+        <div class="exemplo"><div class="area" style="background:var(--linha-orquideas)"><img src="img/orchis-negativo.png" alt="" style="max-width:100%; max-height:120px"></div><div class="marca">Sim</div></div>
+        <div class="exemplo nao"><div class="area" style="background:var(--marca-vermelho)"><img src="img/orchis-negativo.png" alt="" style="max-width:100%; max-height:120px"></div><div class="marca">Não</div></div>
+      </div>
+    </div>
+    <div class="bloco">
+      <div class="nome"><h3>3. O símbolo não se mexe</h3><p>Nem esticado, nem com outras cores. Usa-se o ficheiro tal como está.</p></div>
+      <div class="par-sn">
+        <div class="exemplo"><div class="area"><img src="img/simbolo-letras.png" alt=""></div><div class="marca">Sim</div></div>
+        <div class="exemplo nao"><div class="area"><img class="torto" src="img/simbolo-letras.png" alt=""></div><div class="marca">Não</div></div>
+      </div>
+    </div>
+    <div class="bloco">
+      <div class="nome"><h3>4. Títulos sempre em maiúsculas</h3><p>A letra quadrada só funciona assim. E só uma vez por peça.</p></div>
+      <div class="par-sn">
+        <div class="exemplo"><div class="area"><span class="display" style="font-size:var(--tipo-titulo)">Bio Bonsai</span></div><div class="marca">Sim</div></div>
+        <div class="exemplo nao"><div class="area"><span style="font-family:var(--fonte-display); font-size:var(--tipo-titulo)">Bio Bonsai</span></div><div class="marca">Não</div></div>
+      </div>
+    </div>
+    <div class="bloco">
+      <div class="nome"><h3>5. 盆栽 escreve-se a pincel</h3><p>Os caracteres são uma imagem. Nunca se escrevem com uma letra do computador.</p></div>
+      <div class="par-sn">
+        <div class="exemplo"><div class="area"><div class="chars-vermelhos m-caracteres" style="height:140px"></div></div><div class="marca">Sim</div></div>
+        <div class="exemplo nao"><div class="area"><span class="sistema">盆栽</span></div><div class="marca">Não</div></div>
+      </div>
+    </div>
+    <div class="bloco">
+      <div class="nome"><h3>6. Cores lisas, cantos rectos</h3><p>Sem degradés, sem brilhos, sem cantos arredondados.</p></div>
+      <div class="par-sn">
+        <div class="exemplo"><div class="area"><span class="botao">Adicionar ao carrinho</span></div><div class="marca">Sim</div></div>
+        <div class="exemplo nao"><div class="area"><span class="botao redondo">Adicionar ao carrinho</span></div><div class="marca">Não</div></div>
+      </div>
+    </div>
+    <div class="bloco">
+      <div class="nome"><h3>7. Fotografia sem filtros</h3><p>Cores verdadeiras e luz natural. Nada de sépia, vinhetas ou saturação a mais.</p></div>
+      <div class="par-sn">
+        <div class="exemplo"><div class="area area-foto"><img src="img/gerada-viveiro.jpg" alt=""></div><div class="marca">Sim</div></div>
+        <div class="exemplo nao"><div class="area area-foto"><img class="filtro" src="img/gerada-viveiro.jpg" alt=""></div><div class="marca">Não</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="rodape">
+  <div class="largura">
+    <span>Luso Bonsai · Design system · Outubro 2026</span>
+    <span>Preparado por AgentXN</span>
+  </div>
+</footer>
+
+<script>
+  // Os códigos de cor escritos no ecrã lêem-se do tokens.css: mudar lá muda aqui.
+  const raiz = getComputedStyle(document.documentElement);
+  document.querySelectorAll('[data-token]').forEach(el => {
+    el.textContent = raiz.getPropertyValue(el.dataset.token).trim().toUpperCase();
+  });
+</script>
+</body>
+</html>
