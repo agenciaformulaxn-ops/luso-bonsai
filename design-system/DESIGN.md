@@ -42,7 +42,7 @@ As peças usam **sempre as mesmas tintas**: vermelho CMYK 0/100/100/0 e preto K1
 
 **Regras de cor:**
 - Base de quatro cores, como o cliente escreveu: **vermelho, preto, cinza, branco.** Nada mais.
-- Uma cor de identidade por peça: **vermelho (Bonsai) ou preto (Orquídeas, Goshin)**. O vermelho do símbolo é a única excepção — vai no logótipo em qualquer linha, menos no Goshin: aí o símbolo Luso Bonsai («Aproved by») aparece todo a preto (peça 11).
+- Uma cor de identidade por peça: **vermelho (Bonsai) ou preto (Orquídeas, Goshin)**. O vermelho do símbolo é a única excepção — vai no logótipo em qualquer linha, menos no Goshin: aí o símbolo Luso Bonsai («Aproved by») vai na versão a uma tinta — árvore e vaso a preto K100, sol a cinza K50 (peça 11). Ficheiro: `assets/logos/luso-bonsai-simbolo-preto.svg` (com letras: `luso-bonsai-simbolo-com-letras-por-baixo-preto.svg`), vector extraído da peça 11. Usar sobre branco, como na peça.
 - Sem gradientes de cor. O único efeito da marca é a pincelada (traço de pincel com bordo irregular), sempre numa cor lisa.
 - Sem sombras coloridas nem brilhos.
 - Branco sobre vermelho: títulos grandes e grossos. Texto corrido branco sobre vermelho só nos rótulos de produto (como na peça 8), com o mínimo da secção 7.
@@ -54,7 +54,7 @@ As peças usam **sempre as mesmas tintas**: vermelho CMYK 0/100/100/0 e preto K1
 | **Luso Bonsai** (marca-mãe) | Empresa, cartões, catálogos, lonas, site, tudo o que não é de uma linha | vermelho + preto sobre branco | Símbolo «círculo rasurado» (árvore preta sobre sol vermelho), com «LUSO BONSAI» por baixo ou ao lado | 1, 2, 6, 10, 14, 15, 21 |
 | **Bonsai** (produtos) | Adubos, substratos, folhetos, etiquetas de árvores — tudo o que é para Bonsai | **fundo vermelho** | Símbolo Luso Bonsai pequeno, no rodapé | 3, 4, 8, 18 (Akadama, Pomice) |
 | **Orquídeas · «Orchis by Luso Bonsai»** | Adubos, substratos e catálogo de orquídeas e plantas especiais | **fundo preto** | Logótipo Orchis (a flor faz o «O»; «By:» + símbolo Luso Bonsai pequeno) | 16, 17, 18 (Hidroton, Casca, Coco), 19, 22 |
-| **Goshin · Premium Bonsai Tools** | Ferramentas premium (marca própria) | **preto + branco**, cinza K40 como alternativa. **Sem vermelho** (nenhuma das 3 peças o tem) | «GOSHIN / BONSAI TOOLS» com «Premium» na vertical; círculo preto com bordo de pincel | 11, 12, 13 |
+| **Goshin · Premium Bonsai Tools** | Ferramentas premium (marca própria) | **preto + branco**, cinza K40 como alternativa. **Sem vermelho** (nenhuma das 3 peças o tem) | «GOSHIN / BONSAI TOOLS» com «Premium» na vertical; círculo preto com bordo de pincel. Símbolo Luso Bonsai («Aproved by»): `luso-bonsai-simbolo-preto.svg`, nunca o vermelho | 11, 12, 13 |
 | **Basic · Bonsai Tools** (gama económica) | Ferramentas de entrada | vermelho + branco (é linha Bonsai) | Título «BONSAI TOOLS» + caracteres 盆栽 grandes a vermelho; símbolo Luso Bonsai no verso | 9 |
 
 **Como decidir:** é sobre Bonsai ou para quem trata Bonsai → vermelho. É sobre orquídeas → preto + Orchis. É uma ferramenta Goshin → preto e branco, nunca vermelho. Na dúvida, é Luso Bonsai (marca-mãe).

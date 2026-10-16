@@ -9,3 +9,5 @@ design-system/entrada/catalogo/Catalogo.pdf
 design-system/entrada/material-david-*/onboarding-*.pdf
 design-system/entrada/renders/peca-06-cartao-frente.png
 design-system/entrada/material-david-*/*/6-cartao_empresa*.pdf
+# cópias de segurança: ficam só no disco da agência
+backups/

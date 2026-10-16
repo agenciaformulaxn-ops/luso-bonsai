@@ -560,6 +560,51 @@
     .banner { aspect-ratio: auto; grid-template-columns: 1fr; }
     .banner .foto img { max-height: 240px; }
   }
+  /* ── Lacunas preenchidas a 2026-10-16: Formas, Popup de oferta, A voz ── */
+  .cantos-lb { display: grid; grid-template-columns: repeat(5, 1fr); gap: var(--e-3); }
+  .cantos-lb figure { margin: 0; }
+  .cantos-lb .area { height: 160px; background: var(--marca-cinza-claro); display: flex; align-items: center; justify-content: center; }
+  .cantos-lb .area.claro { background: var(--marca-branco); border: var(--linha); }
+  .cantos-lb .fm { width: 96px; height: 72px; background: var(--marca-branco); }
+  .fm.recto { border-radius: var(--raio-cartao); border: 2px solid var(--marca-preto); }
+  .fm.circulo { width: 72px; border-radius: var(--raio-circulo); border: 2px solid var(--marca-preto); }
+  .fm.linha { border: var(--linha); }
+  .fm.s1 { box-shadow: var(--sombra-1); }
+  .fm.s2 { box-shadow: var(--sombra-2); }
+  .cantos-lb figcaption { margin-top: var(--e-1); font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); line-height: 1.5; }
+  .cantos-lb figcaption b { display: block; color: var(--cor-texto); }
+
+  .popup-demo { position: relative; min-height: 520px; overflow: hidden; border: var(--linha); background: var(--marca-branco); display: flex; align-items: center; justify-content: center; padding: var(--e-5) var(--e-4); }
+  .popup-demo .veu { position: absolute; inset: 0; background: var(--cor-veu); }
+  .popup-lb { position: relative; width: 100%; max-width: 720px; background: var(--marca-branco); box-shadow: var(--sombra-2); display: grid; grid-template-columns: 0.9fr 1.1fr; }
+  .pop-lado { background: var(--linha-bonsai); display: flex; align-items: center; justify-content: center; padding: var(--e-4); }
+  .pop-lado .circ { position: relative; width: 100%; max-width: 240px; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; }
+  .pop-lado .circ img { position: relative; width: 62%; mix-blend-mode: multiply; }
+  .pop-lado .circ .fundo-circ { position: absolute; inset: 0; background: var(--marca-branco); }
+  .pop-corpo-lb { position: relative; padding: var(--e-5) var(--e-4) var(--e-4); display: flex; flex-direction: column; gap: var(--e-2); }
+  .pop-corpo-lb .fechar { position: absolute; top: var(--e-2); right: var(--e-2); color: var(--cor-texto-2); }
+  .pop-corpo-lb .display { font-size: var(--tipo-titulo); margin-top: var(--e-1); }
+  .pop-corpo-lb > p { color: var(--cor-texto-2); line-height: var(--entrelinha-corpo); }
+  .pop-corpo-lb .campo { display: grid; gap: var(--e-0); margin-top: var(--e-1); }
+  .pop-corpo-lb label { font-size: var(--tipo-etiqueta); font-weight: var(--peso-etiqueta); letter-spacing: var(--tracking-etiqueta); text-transform: uppercase; }
+  .pop-corpo-lb .input { height: var(--altura-campo); background: var(--cor-campo); }
+  .pop-corpo-lb .botao { margin-top: var(--e-2); display: flex; justify-content: center; }
+  .pop-corpo-lb .agora { align-self: center; font-size: var(--tipo-etiqueta); color: var(--cor-texto-2); text-decoration: underline; }
+
+  .voz { display: grid; gap: var(--e-5); }
+  .voz h4 { font-size: var(--tipo-subtitulo); font-weight: var(--peso-titulo); }
+  .voz h4 + .par-sn { margin-top: var(--e-2); }
+  .voz .exemplo { display: flex; flex-direction: column; }
+  .voz .exemplo .area { flex: 1; height: auto; min-height: 112px; justify-content: flex-start; padding: var(--e-3); font-size: var(--tipo-subtitulo); line-height: 1.35; }
+  .voz .exemplo.nao .area { color: var(--cor-texto-2); }
+  @media (max-width: 900px) {
+    .cantos-lb { grid-template-columns: 1fr 1fr; }
+    .popup-demo { min-height: 0; padding: var(--e-4) var(--e-2); }
+    .popup-lb { grid-template-columns: 1fr; }
+    .pop-lado { padding: var(--e-3); }
+    .pop-lado .circ { max-width: 160px; }
+    .voz .exemplo .area { font-size: var(--tipo-corpo); min-height: 0; }
+  }
 </style>
 </head>
 <body>
@@ -765,6 +810,17 @@
             <p>Espaço livre à volta: pelo menos a altura do vaso.<br>Tamanho mínimo: <b>15 mm</b> impresso, <b>48 px</b> no ecrã.</p>
           </div>
         </div>
+      </div>
+    </div>
+
+    <div class="bloco">
+      <div class="nome"><h3>Formas</h3><p>Cantos rectos ou círculo completo, nada no meio. Sombra só no ecrã, e só em dois sítios.</p></div>
+      <div class="cantos-lb">
+        <figure><div class="area"><i class="fm recto"></i></div><figcaption><b>Cantos rectos · 0</b>Botões, campos, cartões, selos.</figcaption></figure>
+        <figure><div class="area"><i class="fm circulo"></i></div><figcaption><b>Círculo completo</b>Autocolantes, etiqueta, fotos redondas.</figcaption></figure>
+        <figure><div class="area claro"><i class="fm linha"></i></div><figcaption><b>Linha · 1 px</b>Cinza claro. Filetes e contornos.</figcaption></figure>
+        <figure><div class="area claro"><i class="fm s1"></i></div><figcaption><b>Sombra 1</b>Só no cartão de produto, no ecrã.</figcaption></figure>
+        <figure><div class="area claro"><i class="fm s2"></i></div><figcaption><b>Sombra 2</b>Carrinho lateral e avisos.</figcaption></figure>
       </div>
     </div>
 
@@ -1045,6 +1101,26 @@
     </div>
 
     <div class="bloco revelar">
+      <div class="nome"><h3>Popup de oferta</h3><p>A oferta real do site: o eBook grátis e 10% na primeira compra. Abre ao centro, sobre o véu escuro. Dois campos, um botão.</p></div>
+      <div class="popup-demo">
+        <div class="veu"></div>
+        <div class="popup-lb" role="dialog" aria-label="eBook grátis">
+          <div class="pop-lado"><div class="circ"><div class="fundo-circ m-circulo"></div><img src="img/site-sobreiro.jpg" alt=""></div></div>
+          <div class="pop-corpo-lb">
+            <svg class="ic fechar" aria-hidden="true"><use href="#i-x"/></svg>
+            <p class="sobre">eBook grátis</p>
+            <div class="display">Segredos para cuidar do Bonsai</div>
+            <p>Os cinco cuidados que decidem tudo. E 10% de desconto na sua primeira compra online.</p>
+            <div class="campo"><label>Nome</label><div class="input"></div></div>
+            <div class="campo"><label>Email</label><div class="input"></div></div>
+            <span class="botao">Quero o eBook</span>
+            <span class="agora">Agora não</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bloco revelar">
       <div class="nome"><h3>Acordeão de cuidados</h3><p>Para fichas de produto e páginas de ajuda. Texto do folheto que segue com cada Bonsai.</p></div>
       <div class="acordeao">
         <details open><summary><svg class="ic"><use href="#i-sun"/></svg>Localização<svg class="ic seta"><use href="#i-chevron"/></svg></summary><div class="corpo"><p>Ver a localização da espécie na etiqueta.</p><p>Interior: o mais próximo possível de uma janela com muita luz, sem cortinas nem persianas. Exterior: onde apanhe 2 a 3 horas de sol directo por dia (ideal de manhã ou ao fim do dia), protegido de ventos fortes.</p></div></details>
@@ -1271,9 +1347,30 @@
   <div class="largura">
     <header>
       <p class="sobre">05 · Regras</p>
-      <h2>O que nunca se faz</h2>
-      <p>Sete regras. Quem as cumpre não estraga a marca.</p>
+      <h2>Como a marca fala</h2>
+      <p>Quatro regras de escrita e sete regras de desenho. Quem as cumpre não estraga a marca.</p>
     </header>
+    <div class="bloco">
+      <div class="nome"><h3>A voz</h3><p>Tradicional, conhecedora, próxima. Português de Portugal, sempre por «você». Vale para o site, o email, os posts e as peças impressas.</p></div>
+      <div class="voz">
+        <div><h4>Por «você», muitas vezes sem pronome</h4><div class="par-sn">
+          <div class="exemplo"><div class="area">Deixe o seu Bonsai num hotel.</div><div class="marca">Sim</div></div>
+          <div class="exemplo nao"><div class="area">Deixa o teu Bonsai num hotel.</div><div class="marca">Não</div></div>
+        </div></div>
+        <div><h4>«Bonsai» com B grande, igual no plural</h4><div class="par-sn">
+          <div class="exemplo"><div class="area">Os nossos Bonsai</div><div class="marca">Sim</div></div>
+          <div class="exemplo nao"><div class="area">Os nossos bonsais</div><div class="marca">Não</div></div>
+        </div></div>
+        <div><h4>Quem sabe não promete milagres</h4><div class="par-sn">
+          <div class="exemplo"><div class="area">Todos os nossos Bonsai são 100% climatizados ou produzidos em Portugal.</div><div class="marca">Sim</div></div>
+          <div class="exemplo nao"><div class="area">A planta que nunca morre.</div><div class="marca">Não</div></div>
+        </div></div>
+        <div><h4>Português de Portugal, com artigo</h4><div class="par-sn">
+          <div class="exemplo"><div class="area">Visite o nosso catálogo.</div><div class="marca">Sim</div></div>
+          <div class="exemplo nao"><div class="area">Visite nosso catálogo.</div><div class="marca">Não</div></div>
+        </div></div>
+      </div>
+    </div>
     <div class="bloco">
       <div class="nome"><h3>1. A Goshin nunca leva vermelho</h3><p>Preto, branco e cinza. É assim que se distingue das ferramentas Basic.</p></div>
       <div class="par-sn">
