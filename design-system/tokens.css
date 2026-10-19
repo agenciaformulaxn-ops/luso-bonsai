@@ -126,6 +126,7 @@
   /* ── 6. Logótipo ──────────────────────────────────────────── */
   --logo-min-ecra:        48px;   /* PROPOSTA */
   --logo-min-impressao:   15mm;   /* PROPOSTA */
+  --logo-cabecalho:       74px;   /* medido em luso-bonsai.com: 74 × 79 px, a 1440 e a 390 px (Rui, 2026-10-19) */
 
   /* ── 7. Movimento ─────────────────────────────────────────── */
   --dur-rapido:           150ms;  /* PROPOSTA */
